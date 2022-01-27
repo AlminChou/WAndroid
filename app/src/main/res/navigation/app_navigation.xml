@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_navigation"
+    app:startDestination="@+id/navigation_splash">
+
+
+    <app_fragment
+        android:id="@+id/navigation_splash"
+        android:name="com.almin.wandroid.ui.module.SplashFragment"
+        android:label="@string/splash"
+        tools:layout="@layout/fragment_splash">
+
+        <!--        enterAnim: 配置进场时目标页面动画
+                    exitAnim: 配置进场时原页面动画
+                    popEnterAnim: 配置回退时目标页面动画
+                    popExitAnim: 配置回退时原页面动画配置完后     -->
+
+        <action
+            android:id="@+id/action_navigation_splash_to_navigation_main"
+            app:destination="@id/navigation_main"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true" />
+
+        <argument
+            android:name="plantId"
+            app:argType="string"
+            android:defaultValue="unknow"/>
+
+    </app_fragment>
+
+    <app_fragment
+        android:id="@+id/navigation_main"
+        android:name="com.almin.wandroid.ui.module.main.MainFragment"
+        android:label="@string/title_main"
+        tools:layout="@layout/fragment_main"
+        >
+        <!--            <action-->
+        <!--                android:id="@+id/action_navigation_main_to_navigation_detail"-->
+        <!--                app:destination="@id/navigation_detail"-->
+        <!--                app:enterAnim="@anim/slide_in_right"-->
+        <!--                app:exitAnim="@anim/slide_out_left"-->
+        <!--                app:popEnterAnim="@anim/slide_in_left"-->
+        <!--                app:popExitAnim="@anim/slide_out_right"/>-->
+    </app_fragment>
+
+    <app_fragment
+        android:id="@+id/navigation_login"
+        android:name="com.almin.wandroid.ui.module.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login" />
+
+    <app_fragment
+        android:id="@+id/navigation_register"
+        android:name="com.almin.wandroid.ui.module.register.RegisterFragment"
+        android:label="@string/register"
+        tools:layout="@layout/fragment_signin" />
+
+    <app_fragment
+        android:id="@+id/navigation_web"
+        android:name="com.almin.wandroid.ui.module.web.WebFragment"
+        android:label="@string/web_detail"
+        tools:layout="@layout/fragment_web" />
+
+</navigation>

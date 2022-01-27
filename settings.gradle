@@ -1,0 +1,25 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    versionCatalogs{
+//        libs{
+//            alias('hilt').toPluginId()
+//        }
+
+    }
+}
+rootProject.name = "WAndroid"
+include ':app'
+include ':common'
+include ':registration'

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">WAndroid</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="splash">splash</string>
+    <string name="login">登录</string>
+    <string name="register">register</string>
+    <string name="title_main">main</string>
+    <string name="title_mine">我的</string>
+    <string name="web_detail">web detail</string>
+    <string name="share">share</string>
+    <string name="collect">collect</string>
+    <string name="account">账号</string>
+</resources>
