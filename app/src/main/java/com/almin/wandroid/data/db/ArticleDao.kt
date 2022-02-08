@@ -1,8 +1,11 @@
 package com.almin.wandroid.data.db
 
+import androidx.annotation.WorkerThread
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.almin.wandroid.data.model.Article
 
 /**
@@ -11,11 +14,13 @@ import com.almin.wandroid.data.model.Article
 @Dao
 interface ArticleDao {
 
+    @WorkerThread
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveHomeListCache(articles: List<Article>)
+    suspend fun saveListCache(articles: List<Article>)
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun saveCollectListCache(articles: List<Article>)
+    @Query("SELECT * FROM article WHERE articleType =:articleType Order by publishTime desc")
+    fun queryArticleCache(articleType: Int): PagingSource<Int, Article>
 
-
+    @Query("DELETE FROM article WHERE articleType=:articleType")
+    suspend fun clearArticleByType(articleType: Int)
 }

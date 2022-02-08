@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -35,7 +35,9 @@ data class Article(
     var type: Int,
     var userId: Int,
     var visible: Int,
-    var zan: Int) : Parcelable{
+    var zan: Int,
+    var articleType: Int = -1) : Parcelable {
+
 
     val isTop: Boolean
         get() {

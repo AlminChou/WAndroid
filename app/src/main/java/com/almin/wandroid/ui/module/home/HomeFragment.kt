@@ -104,10 +104,12 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                     items(pager, key = {
                         it.id
                     }){
-                        ArticleItemCard(item = it!!){
-                            //click
-                            (activity as AppNavigator).display(R.id.navigation_web,
-                                AppNavigator.NavigationType.Add, bundleOf("url" to it.link, "title" to it.title))
+                        it?.run {
+                            ArticleItemCard(item = this){
+                                //click
+                                (activity as AppNavigator).display(R.id.navigation_web,
+                                    AppNavigator.NavigationType.Add, bundleOf("url" to it.link, "title" to it.title))
+                            }
                         }
                     }
                     item(key = "bottom_spacer") {
@@ -277,11 +279,11 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                                 TagView("新", Color(0xFFFF0000))
                             }
                         }
-                        if(!item.tags.isNullOrEmpty()) {
-                            items(item.tags){ tag ->
-                                TagView(tag.name, Color(0xFFDC514E))
-                            }
-                        }
+//                        if(!item.tags.isNullOrEmpty()) {
+//                            items(item.tags){ tag ->
+//                                TagView(tag.name, Color(0xFFDC514E))
+//                            }
+//                        }
                     }
                 }
             }

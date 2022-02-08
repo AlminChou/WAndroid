@@ -37,7 +37,7 @@ val appModule = module {
         }
     }}
 
-    single { ArticleRepository(get()) }
+    single { ArticleRepository(get(), get()) }
     single { UserRepository(get(), get()) }
 
     viewModel { AppViewModel(get(), get()) }

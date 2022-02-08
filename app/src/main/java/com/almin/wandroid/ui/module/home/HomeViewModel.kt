@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.almin.arch.middleware.MiddleWareProvider
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.viewmodel.Contract
@@ -15,23 +16,30 @@ import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.ui.paging.pager
 import com.almin.wandroid.data.repository.ArticleRepository
+import com.almin.wandroid.ui.paging.remoteMediatorPage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(middleWareProvider: MiddleWareProvider, private val articleRepository: ArticleRepository) : AbstractViewModel<PageState, PageEvent>(middleWareProvider) {
 
+    // 不带缓存方式
     private val articlePager by lazy {
         pager(config = PagingConfig(15, 1, true, 15), 0){
             articleRepository.getArticleList(it)
         }
     }
 
+    // 使用room缓存方式
+    private val articlePagerWithRoom by lazy {
+        articleRepository.homePager().cachedIn(viewModelScope)
+    }
+
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-    var viewStates by mutableStateOf(HomeContract.PageState(articlePager))
+    var viewStates by mutableStateOf(HomeContract.PageState(articlePagerWithRoom))
         private set
 
     override fun attach(arguments: Bundle?) {

@@ -4,16 +4,21 @@ import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.almin.wandroid.data.model.Article
+import com.almin.wandroid.data.model.RemoteKeys
 import com.almin.wandroid.data.model.UserInfo
 
 /**
  * Created by Almin on 2022/1/22.
  */
-@Database(entities = [UserInfo::class, Article::class], version = 1, exportSchema = false)
+@Database(entities = [UserInfo::class, Article::class, RemoteKeys::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
+
     val user: UserDao by lazy { getUserDao() }
     abstract fun getUserDao() : UserDao
+
+    val remoteKeys: RemoteKeysDao by lazy { getRemoteKeysDao() }
+    abstract fun getRemoteKeysDao() : RemoteKeysDao
 
     val article: ArticleDao by lazy { getArticleDao() }
     abstract fun getArticleDao() : ArticleDao

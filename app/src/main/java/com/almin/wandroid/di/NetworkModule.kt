@@ -27,7 +27,7 @@ val networkModule = module{
                 it
             }
             retrofit {
-                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory())  .build()
+                val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
                 it.addConverterFactory(CustomScalarsConverterFactory.create(moshi))
                 it.addConverterFactory(CustomMoshiConverterFactory.create(moshi))
 //                it.baseUrl("https://api.github.com/")
