@@ -1,4 +1,4 @@
-# WAndroid
+# WAndroid - 开源玩Android小项目
 
 * MVI架构 single Activity multi Fragment
 * 协程
