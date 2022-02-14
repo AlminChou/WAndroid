@@ -7,7 +7,7 @@
 //import java.util.*
 //
 ///**
-// * Created by Almin on 2019-07-07.
+// * Created by Almin on 2019-07-07.  以前自己研究一直在用的rxjava 自动刷新token重新请求的代理类
 // */
 //class TokenRefreshProxy(private val proxyObject: Any,
 //                        private val tokenOperator: TokenOperator,

@@ -14,6 +14,7 @@ import androidx.viewbinding.ViewBinding
 import com.almin.arch.bus.FlowBus
 import com.almin.arch.ui.lifecycleobserver.ActivityCreatedObserver
 import com.almin.arch.viewmodel.AbstractViewModel
+import com.almin.arch.viewmodel.Contract.PageEffect
 import com.almin.arch.viewmodel.Contract.PageState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -22,7 +23,7 @@ import kotlinx.coroutines.launch
 /**
  * Created by Almin on 2019-07-17.
  */
-abstract class AbstractFragment<VB : ViewBinding, S: PageState, VM : AbstractViewModel<S, *>>(
+abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffect, VM : AbstractViewModel<S, *, Effect>>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment(), ActivityCreatedObserver{
 
     companion object{
@@ -43,6 +44,8 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, VM : AbstractVie
 //    protected abstract fun initEventSubscribe(bus: FlowBus)
 
     protected abstract fun handleState(state: S)
+    protected abstract fun handleEffect(effect: Effect)
+
 
     protected open fun addBackPressedCallback(): Boolean = true
 
@@ -101,8 +104,14 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, VM : AbstractVie
                 }
             }
         }
+        bind(Lifecycle.State.STARTED){
+            viewModel.effect.collect {
+                handleEffect(it as Effect)
+            }
+        }
         initData()
     }
+
 
     override fun onResume() {
         super<Fragment>.onResume()

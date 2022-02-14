@@ -2,11 +2,22 @@ package com.almin.wandroid.ui.navigator
 
 import android.os.Bundle
 import androidx.annotation.IdRes
+import androidx.fragment.app.Fragment
+import com.almin.wandroid.R
 
 
 /**
  * Created by Almin on 2020/12/28.
  */
+
+fun Fragment.appNavigator() : AppNavigator{
+    if(activity is AppNavigator){
+        return activity as AppNavigator
+    }else{
+        throw Exception("Activity is not AppNavigator")
+    }
+}
+
 interface AppNavigator {
     // fragment show type
     companion object{
@@ -20,6 +31,11 @@ interface AppNavigator {
         object Replace : NavigationType(NAVIGATION_TYPE_REPLACE)
     }
 
+    sealed class Anim (val enter: Int, val exit: Int, val popEnter: Int, val popExit: Int){
+        object FadeIn : Anim(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+        object RightInRightOut : Anim(R.anim.slide_in_right_fade, android.R.anim.fade_out, android.R.anim.fade_in, R.anim.slide_out_right_fade)
+        object RightInLeftOutAppend : Anim(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+    }
 
     //  A->B->C    ===>    C -> A
     fun backTo(@IdRes destination: Int, firstOrLast: Boolean)   // pop掉自己上面所有    firstOrLast 栈里第一个 / 最后一个  （重复对象）
@@ -29,14 +45,14 @@ interface AppNavigator {
 
     // add replace
 
-    // navigate 应该是 每次都新创建对象页面？，  一次性返回前面页面应该用 backTo
-    fun navigate(@IdRes destination: Int, type: NavigationType, args: Bundle?)
+    // navigate 应该是 每次都新创建对象页面，  一次性返回前面页面应该用 backTo
+    fun navigate(@IdRes destination: Int, type: NavigationType, args: Bundle?, anim: Anim = Anim.FadeIn)
 
     // 每次都新创建对象页面
     fun display(@IdRes destination: Int, type: NavigationType, args: Bundle?)
 
     // handle deeplink
-    fun navigate(url: String, type: NavigationType, args: Bundle?)
+    fun navigate(url: String, type: NavigationType, args: Bundle?, anim: Anim = Anim.FadeIn)
 
 //    https://mp.weixin.qq.com/s/qgNbxgB-6qrFzJflqaBUdg
     // navigateUp popBackStack

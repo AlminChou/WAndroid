@@ -29,5 +29,7 @@ class App : Application() {
             fragmentFactory()
             modules(appModule, networkModule)
         }
+
+        xcrash.XCrash.init(this)
     }
 }

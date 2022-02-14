@@ -7,32 +7,34 @@ import kotlinx.coroutines.flow.*
  */
 abstract class Repository {
 
-
-    sealed class Category{
+    sealed class Category {
         object CacheFirstFetchCover : Category() // 优先展示缓存 ，请求覆盖
         object FetchFailedCacheCover : Category() // 请求失败后，读取缓存覆盖
-        object QueryAfterFetchSave: Category()  //  请求成功后写入缓存，读取缓存进行覆盖
+        object QueryAfterFetchSave : Category()  //  请求成功后写入缓存，读取缓存进行覆盖
+        object CacheFirstQueryCoverAfterFetch : Category()  //  优先展示缓存， 请求成功后写入缓存，读取缓存进行覆盖
     }
 
-    inline fun <T> networkBoundResource(crossinline cacheQuery: () -> Flow<T>,
-                                    crossinline fetch: suspend () -> T,
-                                    crossinline shouldFetch: (T?) -> Boolean,
-                                    crossinline saveFetchResult: suspend (T) -> Unit,
-                                    crossinline onFetchFailed:(Throwable) -> Unit, category: Category = Category.FetchFailedCacheCover
+    inline fun <T> networkBoundResource(
+        crossinline cacheQuery: () -> Flow<T>,
+        crossinline fetch: suspend () -> T,
+        crossinline shouldFetch: (T?) -> Boolean,
+        crossinline saveFetchResult: suspend (T) -> Unit,
+        crossinline onFetchFailed: (Throwable) -> Unit,
+        category: Category = Category.FetchFailedCacheCover
     ): Flow<Resource<T>> = flow {
         emit(Resource.loading(null))
 
-        val cacheValue = try {
-            cacheQuery().first()
-        }catch (throwable: Throwable) {
-            emitAll(emptyFlow<Resource<T>>().map { Resource.error(throwable) })
-            null
-        }
-
-        when(category){
+        when (category) {
             Category.CacheFirstFetchCover -> {
+                val cacheValue = try {
+                    cacheQuery().first()
+                } catch (throwable: Throwable) {
+                    emitAll(emptyFlow<Resource<T>>().map { Resource.error(throwable) })
+                    null
+                }
+
                 emit(Resource.cache(cacheValue))
-                if (shouldFetch(cacheValue)){
+                if (shouldFetch(cacheValue)) {
                     try {
                         val fetchData = fetch()
                         saveFetchResult(fetchData)
@@ -45,7 +47,14 @@ abstract class Repository {
             }
 
             Category.FetchFailedCacheCover -> {
-                if (shouldFetch(cacheValue)){
+                val cacheValue = try {
+                    cacheQuery().first()
+                } catch (throwable: Throwable) {
+                    emitAll(emptyFlow<Resource<T>>().map { Resource.error(throwable) })
+                    null
+                }
+
+                if (shouldFetch(cacheValue)) {
                     try {
                         val fetchData = fetch()
                         saveFetchResult(fetchData)
@@ -58,7 +67,27 @@ abstract class Repository {
                 }
             }
 
+
             Category.QueryAfterFetchSave -> {
+                try {
+                    saveFetchResult(fetch())
+                    emitAll(cacheQuery().map { Resource.success(it) })
+                } catch (throwable: Throwable) {
+                    onFetchFailed(throwable)
+                    // 请求失败时候 或者 读取缓存失败 异常
+                    emit(Resource.error(throwable))
+//                        emitAll(cacheQuery().map { Resource.error(throwable) })
+                }
+            }
+
+
+            Category.CacheFirstQueryCoverAfterFetch -> {
+                val cacheValue = try {
+                    cacheQuery().first()
+                } catch (throwable: Throwable) {
+                    emitAll(emptyFlow<Resource<T>>().map { Resource.error(throwable) })
+                    null
+                }
                 if (shouldFetch(cacheValue)) {
                     emit(Resource.loading(cacheValue))
                     try {
@@ -72,7 +101,7 @@ abstract class Repository {
                     emitAll(cacheQuery().map { Resource.success(it) })
                 }
             }
-        }
 
+        }
     }
 }

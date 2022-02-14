@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.webkit.*
 import com.almin.wandroid.utils.NetworkUtil
 
+// 参考：https://mp.weixin.qq.com/s/yEKj21WHa9hIdQ-dljG2ow
 
 class WebViewManager private constructor() {
 

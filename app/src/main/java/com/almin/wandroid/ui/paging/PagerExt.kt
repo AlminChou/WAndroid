@@ -42,8 +42,8 @@ fun <Value : Any> ViewModel.pager(config: PagingConfig, initialKey: Int, apiCall
 
 
 @OptIn(ExperimentalPagingApi::class)
-fun <Value : Any> Repository.remoteMediatorPage(config: PagingConfig,
-                                                     pagingSourceFactory: () -> PagingSource<Int, Value>,
+fun <Value : Any> Repository.remoteMediatorPager(config: PagingConfig,
+                                                 pagingSourceFactory: () -> PagingSource<Int, Value>,
                                                  keyQuery: suspend (lastItem: Value) -> RemoteKeys?,
                                                  apiCall: suspend (pageIndex: Int) -> List<Value>, db: RoomDatabase,
                                                  dbClean: suspend (db: RoomDatabase) -> Unit,

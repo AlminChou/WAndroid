@@ -9,7 +9,7 @@ import com.almin.arch.viewmodel.Contract.PageState
  * Created by Almin on 2019-09-05.
  * 默认占位通用viewmodel
  */
-class HolderViewModel : AbstractViewModel<PageState, PageEvent>(null) {
+class HolderViewModel : AbstractViewModel<PageState, PageEvent, Contract.PageEffect>(null) {
 
     override fun initialState(): PageState = State.Default
 

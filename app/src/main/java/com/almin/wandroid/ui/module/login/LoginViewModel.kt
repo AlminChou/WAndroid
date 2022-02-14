@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.almin.arch.middleware.MiddleWareProvider
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.repository.Status
+import com.almin.arch.viewmodel.Contract
 import com.almin.wandroid.data.model.UserInfo
 import com.almin.wandroid.data.repository.UserRepository
 import kotlinx.coroutines.launch
@@ -12,7 +13,8 @@ import kotlinx.coroutines.launch
 /**
  * Created by Almin on 2022/1/4.
  */
-class LoginViewModel(middleWareProvider: MiddleWareProvider, private val userRepository: UserRepository) : AbstractViewModel<LoginContract.State, LoginContract.Event>(middleWareProvider) {
+class LoginViewModel(middleWareProvider: MiddleWareProvider, private val userRepository: UserRepository)
+    : AbstractViewModel<LoginContract.State, LoginContract.Event, Contract.PageEffect>(middleWareProvider) {
 
     override fun initialState(): LoginContract.State = LoginContract.State.Default
 

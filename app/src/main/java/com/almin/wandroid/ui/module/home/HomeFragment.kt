@@ -31,14 +31,17 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageState
 import com.almin.wandroid.R
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.databinding.FragmentHomeBinding
+import com.almin.wandroid.ui.AppContract
 import com.almin.wandroid.ui.base.AbsTabFragment
 import com.almin.wandroid.ui.compose.RefreshLazyColumn
 import com.almin.wandroid.ui.navigator.AppNavigator
+import com.almin.wandroid.ui.navigator.appNavigator
 import com.almin.wandroid.ui.widget.StatusBarUtil.setAppbarTopPadding
 import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -54,11 +57,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 // compose demo doc : https://docs.compose.net.cn/design/animation/animatestate/
 // paging3 loadmore : https://medium.com/simform-engineering/list-view-with-pagination-using-jetpack-compose-e131174eac8e
 
-class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewModel>(FragmentHomeBinding::inflate) {
+class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, Contract.PageEffect, HomeViewModel>(FragmentHomeBinding::inflate) {
     //    sharedViewModel
     override val viewModel: HomeViewModel by viewModel()
 
     override fun lazyLoadData() {
+        super.lazyLoadData()
         viewModel.setEvent(HomeContract.PageEvent.Refresh)
     }
 
@@ -83,7 +87,7 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                 }) { coroutineScope, listState ->
                     item(key = "top_banner"){
                         Banner(banners){
-                            (activity as AppNavigator).display(R.id.navigation_web,
+                            appNavigator().display(R.id.navigation_web,
                                 AppNavigator.NavigationType.Add, bundleOf("url" to it.url, "title" to it.title))
                         }
 //                        coroutineScope.launch {
@@ -96,7 +100,7 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                         }){ _, item ->
                             ArticleItemCard(item = item){
                                 //click
-                                (activity as AppNavigator).display(R.id.navigation_web,
+                                appNavigator().display(R.id.navigation_web,
                                     AppNavigator.NavigationType.Add, bundleOf("url" to item.link, "title" to item.title))
                             }
                         }
@@ -107,7 +111,7 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                         it?.run {
                             ArticleItemCard(item = this){
                                 //click
-                                (activity as AppNavigator).display(R.id.navigation_web,
+                                appNavigator().display(R.id.navigation_web,
                                     AppNavigator.NavigationType.Add, bundleOf("url" to it.link, "title" to it.title))
                             }
                         }
@@ -250,9 +254,13 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                         change = false
                     }
                     IconButton(onClick = {
+                        if(appViewModel.isLogined()){
 //                        isCollect = !isCollect
-                        item.collect = !item.collect
-                        change = true
+                            item.collect = !item.collect
+                            change = true
+                        }else{
+                            appViewModel.setEvent(AppContract.Event.Login)
+                        }
                     }, modifier = Modifier.constrainAs(collect){
                         bottom.linkTo(parent.bottom)
                         end.linkTo(parent.end)
@@ -302,6 +310,9 @@ class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, HomeViewMode
                 color = color,
                 fontSize = 11.sp)
         }
+    }
+
+    override fun handleEffect(effect: Contract.PageEffect) {
     }
 
 }

@@ -41,7 +41,7 @@ internal class CustomMoshiResponseBodyConverter<T>(private val adapter: JsonAdap
                 try {
                     val responseJson = JSONObject(bodyResponse)
                     if(responseJson.has(ApiResponse.API_RESULT_BODY_KEY)){  // responseJson.isNull(ApiResponse.API_RESULT_BODY_KEY)
-                        bodyResponse = responseJson.opt(ApiResponse.API_RESULT_BODY_KEY).toString()
+                        bodyResponse = responseJson.opt(ApiResponse.API_RESULT_BODY_KEY)?.toString()?:""
                     }else{
                         isJsonFile = true
                     }

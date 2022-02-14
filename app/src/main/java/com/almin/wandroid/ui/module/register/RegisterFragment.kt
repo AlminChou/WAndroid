@@ -6,8 +6,11 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.almin.arch.ui.AbstractFragment
+import com.almin.arch.viewmodel.Contract
 import com.almin.wandroid.R
 import com.almin.wandroid.databinding.FragmentSigninBinding
+import com.almin.wandroid.ui.base.AbsFragment
+import com.almin.wandroid.ui.navigator.appNavigator
 import com.almin.wandroid.ui.widget.StatusBarUtil
 import com.blankj.utilcode.util.KeyboardUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Created by Almin on 2022/1/6.
  */
-class RegisterFragment : AbstractFragment<FragmentSigninBinding, RegisterContract.State, RegisterViewModel>(FragmentSigninBinding::inflate) {
+class RegisterFragment : AbsFragment<FragmentSigninBinding, RegisterContract.State, Contract.PageEffect, RegisterViewModel>(FragmentSigninBinding::inflate) {
 
     override val viewModel: RegisterViewModel by viewModel()
 
@@ -52,8 +55,12 @@ class RegisterFragment : AbstractFragment<FragmentSigninBinding, RegisterContrac
             }
             RegisterContract.State.SignInSuccess -> {
                 binding.pbLoading.isVisible = false
+                appNavigator().backTo(R.id.navigation_main, false)
             }
             else -> binding.pbLoading.isVisible = false
         }
+    }
+
+    override fun handleEffect(effect: Contract.PageEffect) {
     }
 }

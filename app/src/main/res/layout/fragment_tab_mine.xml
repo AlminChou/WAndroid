@@ -6,17 +6,374 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <TextView
-        android:id="@+id/text_dashboard"
+    <RelativeLayout
+        android:id="@+id/rl_option"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="14dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_setting" />
+
+
+        <ImageView
+            android:id="@+id/iv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/iv_setting"
+            android:layout_toLeftOf="@id/iv_setting"
+            android:src="@drawable/ic_message" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="14dp"
+            android:paddingLeft="12dp"
+            android:paddingTop="8dp"
+            android:paddingRight="12dp"
+            android:paddingBottom="8dp"
+            android:background="@drawable/bg_check_in_btn">
+
+            <ImageView
+                android:id="@+id/iv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_check_in" />
+
+            <TextView
+                android:id="@+id/tv_sign_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toRightOf="@id/iv1"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="@string/check_in"
+                android:textColor="@color/c_ff0c0c1c"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        app:layout_constraintRight_toLeftOf="@id/tv_username"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_option"/>
+
+    <TextView
+        android:id="@+id/tv_username"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="username"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
+        app:layout_constraintBottom_toTopOf="@id/tv_email"
+        android:visibility="invisible"
+        />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="email"
+        android:visibility="invisible"
+        app:layout_constraintLeft_toLeftOf="@id/tv_username"
+        app:layout_constraintTop_toBottomOf="@id/tv_username"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textSize="16sp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/cardview_dark_background"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        app:layout_constraintLeft_toRightOf="@id/iv_avatar"/>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_avatar"
+        android:background="@color/cardview_shadow_start_color">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:layout_marginTop="1dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_link"
+                android:gravity="center"
+                android:textColor="@color/c_ff0c0c1c"
+                android:layout_weight="1"
+                android:text="未开放"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_link"
+                android:gravity="center"
+                android:textColor="@color/c_ff0c0c1c"
+                android:layout_weight="1"
+                android:text="未开放"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_link"
+                android:gravity="center"
+                android:textColor="@color/c_ff0c0c1c"
+                android:layout_weight="1"
+                android:text="未开放"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_link"
+                android:gravity="center"
+                android:textColor="@color/c_ff0c0c1c"
+                android:layout_weight="1"
+                android:text="未开放"/>
+
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_integral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_integral"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_integral"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintRight_toLeftOf="@id/tv_label_integral"/>
+
+            <TextView
+                android:id="@+id/tv_label_integral"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/integral_rule"
+                android:textColor="@color/c_ff0c0c1c"
+                android:textSize="14sp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_integral"
+                app:layout_constraintRight_toLeftOf="@id/view_right_arrow"
+                android:layout_marginLeft="12dp"
+                />
+
+            <ImageView
+                android:id="@+id/view_right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_label_integral"
+                android:src="@drawable/ic_arrow_right"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_wan_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_wan_page"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_link"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintRight_toLeftOf="@id/tv_label_wan_page"/>
+
+            <TextView
+                android:id="@+id/tv_label_wan_page"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/wan_page"
+                android:textColor="@color/c_ff0c0c1c"
+                android:textSize="14sp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_wan_page"
+                app:layout_constraintRight_toLeftOf="@id/view_right_arrow_wan_page"
+                android:layout_marginLeft="12dp"
+                />
+
+            <ImageView
+                android:id="@+id/view_right_arrow_wan_page"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_label_wan_page"
+                android:src="@drawable/ic_arrow_right"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_about"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_about"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_about"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintRight_toLeftOf="@id/tv_label_about"/>
+
+            <TextView
+                android:id="@+id/tv_label_about"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/about"
+                android:textColor="@color/c_ff0c0c1c"
+                android:textSize="14sp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_about"
+                app:layout_constraintRight_toLeftOf="@id/view_right_arrow_about"
+                android:layout_marginLeft="12dp"
+                />
+
+            <ImageView
+                android:id="@+id/view_right_arrow_about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_label_about"
+                android:src="@drawable/ic_arrow_right"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="1dp"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/iv_logout"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_logout"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintRight_toLeftOf="@id/tv_label_logout"/>
+
+            <TextView
+                android:id="@+id/tv_label_logout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/logout"
+                android:textColor="@color/c_ff0c0c1c"
+                android:textSize="14sp"
+                android:layout_marginRight="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/iv_logout"
+                app:layout_constraintRight_toLeftOf="@id/view_right_arrow_logout"
+                android:layout_marginLeft="12dp"
+                />
+
+            <ImageView
+                android:id="@+id/view_right_arrow_logout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/tv_label_logout"
+                android:src="@drawable/ic_arrow_right"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

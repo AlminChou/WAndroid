@@ -16,12 +16,11 @@ import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.ui.paging.pager
 import com.almin.wandroid.data.repository.ArticleRepository
-import com.almin.wandroid.ui.paging.remoteMediatorPage
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
-class HomeViewModel(middleWareProvider: MiddleWareProvider, private val articleRepository: ArticleRepository) : AbstractViewModel<PageState, PageEvent>(middleWareProvider) {
+class HomeViewModel(middleWareProvider: MiddleWareProvider, private val articleRepository: ArticleRepository) : AbstractViewModel<PageState, PageEvent, Contract.PageEffect>(middleWareProvider) {
 
     // 不带缓存方式
     private val articlePager by lazy {
@@ -39,7 +38,8 @@ class HomeViewModel(middleWareProvider: MiddleWareProvider, private val articleR
     val isRefreshing: StateFlow<Boolean>
         get() = _isRefreshing.asStateFlow()
 
-    var viewStates by mutableStateOf(HomeContract.PageState(articlePagerWithRoom))
+//    var viewStates by mutableStateOf(HomeContract.PageState(articlePagerWithRoom))
+    var viewStates by mutableStateOf(HomeContract.PageState(articlePager))
         private set
 
     override fun attach(arguments: Bundle?) {

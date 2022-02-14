@@ -8,17 +8,19 @@ import com.almin.arch.repository.Resource
 import com.almin.arch.repository.Status
 import com.almin.arch.viewmodel.Contract.PageEvent
 import com.almin.arch.viewmodel.Contract.PageState
+import com.almin.arch.viewmodel.Contract.PageEffect
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 /**
  * Created by Almin on 2022-01-05.
  */
-abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleWareProvider: MiddleWareProvider?) : ViewModel() {
+abstract class AbstractViewModel<S: PageState, E: PageEvent, Effect: PageEffect>(private val middleWareProvider: MiddleWareProvider?) : ViewModel() {
 
-//    protected val initialState: S by lazy { createInitialState() }
+    //    protected val initialState: S by lazy { createInitialState() }
     protected abstract fun initialState(): S
 
     val currentState: S
@@ -30,6 +32,11 @@ abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleW
     private val _event : MutableSharedFlow<E> = MutableSharedFlow()
     val event = _event.asSharedFlow()
 
+    /**
+     *  single event  1:1 -- Toast、Dialog、fragment跳转
+     */
+    private val _effect: Channel<Effect> = Channel()
+    val effect = _effect.receiveAsFlow()
 
     fun setEvent(event : E) {
         viewModelScope.launch { _event.emit(event) }
@@ -37,6 +44,11 @@ abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleW
 
     protected fun setState(action: S.() -> S) {
         _uiState.value = currentState.action()
+    }
+
+    protected fun setEffect(builder: () -> Effect) {
+        val effectValue = builder()
+        viewModelScope.launch { _effect.send(effectValue) }
     }
 
     abstract fun attach(arguments: Bundle?)
@@ -52,11 +64,16 @@ abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleW
         }
     }
 
-    fun <Model> api(networkBound: Flow<Resource<Model>>, block: ApiCallback<Model>.()-> Unit) : Job {
+    protected fun <Model> api(networkBound: Flow<Resource<Model>>, block: ApiCallback<Model>.()-> Unit) : Job {
         val apiCallback = ApiCallback<Model>()
         block.invoke(apiCallback)
         return viewModelScope.launch {
-            networkBound.collect{
+            networkBound.catch {
+                it.run {
+                    middleWareProvider?.exceptionHandlerProvider()?.handle(this)
+                    apiCallback.failed?.invoke(this)
+                }
+            }.collect{
                 when(it.status){
                     Status.Loading -> apiCallback.prepare?.invoke()
                     Status.Success -> it.data?.let { value -> apiCallback.success?.invoke(value) }
@@ -74,7 +91,7 @@ abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleW
         }
     }
 
-    fun <Model> api(block: ApiCallback<Model>.()-> Unit) : Job {
+    protected fun <Model> api(block: ApiCallback<Model>.()-> Unit) : Job {
         val apiCallback = ApiCallback<Model>()
         block.invoke(apiCallback)
         return viewModelScope.launch {
@@ -90,7 +107,7 @@ abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleW
         }
     }
 
-    fun <Model> cacheApi(block: ApiCallback<Model>.()-> Unit) : Job {
+    protected fun <Model> cacheApi(block: ApiCallback<Model>.()-> Unit) : Job {
         val apiCallback = ApiCallback<Model>()
         block.invoke(apiCallback)
         return viewModelScope.launch {
@@ -106,7 +123,7 @@ abstract class AbstractViewModel<S: PageState, E: PageEvent>(private val middleW
         }
     }
 
-    fun <T> Flow<T>.apiCatch(action: suspend kotlinx.coroutines.flow.FlowCollector<T>.(cause: Throwable) -> Unit) : Flow<T> {
+    protected fun <T> Flow<T>.apiCatch(action: suspend kotlinx.coroutines.flow.FlowCollector<T>.(cause: Throwable) -> Unit) : Flow<T> {
         return this.catch {
             middleWareProvider?.exceptionHandlerProvider()?.handle(it)
             action(it)

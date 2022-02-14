@@ -9,10 +9,13 @@ interface Contract {
         sealed interface Default: PageEvent
     }
     interface PageState{
-        object Default: PageState{
-            override val loadingState: LoadStatus = LoadStatus.Default
-        }
+        object Default: PageState
         val loadingState: LoadStatus
+            get() = LoadStatus.Default
+    }
+
+    interface PageEffect{
+        sealed class Toast(val string: String): PageEffect
     }
 
     sealed class LoadStatus {

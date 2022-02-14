@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.viewbinding.ViewBinding
 import com.almin.arch.viewmodel.AbstractViewModel
-import com.almin.arch.viewmodel.Contract.PageEvent
+import com.almin.arch.viewmodel.Contract.PageEffect
 import com.almin.arch.viewmodel.Contract.PageState
 
 
@@ -15,8 +15,8 @@ import com.almin.arch.viewmodel.Contract.PageState
  * Created by Almin on 2019-07-18.
  * 懒加载fragment, 日后用 FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State) 重新实现
  */
-abstract class AbsLazyFragment<VB : ViewBinding, S: PageState, VM : AbstractViewModel<S,*>>(
-    private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : AbstractFragment<VB,S,VM>(inflate) {
+abstract class AbsLazyFragment<VB : ViewBinding, S: PageState, Effect: PageEffect, VM : AbstractViewModel<S,*, Effect>>(
+    private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : AbstractFragment<VB,S,Effect,VM>(inflate) {
 
     /**
      * 是否可见状态 为了避免和[Fragment.isVisible]冲突 换个名字

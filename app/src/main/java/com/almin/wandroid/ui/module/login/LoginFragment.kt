@@ -7,10 +7,14 @@ import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import com.almin.arch.ui.AbstractFragment
+import com.almin.arch.viewmodel.Contract
 import com.almin.wandroid.R
+import com.almin.wandroid.data.model.UserInfo
 import com.almin.wandroid.databinding.FragmentLoginBinding
 import com.almin.wandroid.ui.AppViewModel
+import com.almin.wandroid.ui.base.AbsFragment
 import com.almin.wandroid.ui.navigator.AppNavigator
+import com.almin.wandroid.ui.navigator.appNavigator
 import com.almin.wandroid.ui.widget.StatusBarUtil
 import com.blankj.utilcode.util.KeyboardUtils
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -19,8 +23,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Created by Almin on 2022/1/4.
  */
-class LoginFragment : AbstractFragment<FragmentLoginBinding, LoginContract.State, LoginViewModel>(FragmentLoginBinding::inflate) {
-    private val appViewModel: AppViewModel by sharedViewModel()
+class LoginFragment : AbsFragment<FragmentLoginBinding, LoginContract.State, Contract.PageEffect, LoginViewModel>(FragmentLoginBinding::inflate) {
     override val viewModel: LoginViewModel by viewModel()
 
     override fun initView(rootView: View) {
@@ -43,13 +46,11 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding, LoginContract.State
 
         }
         binding.tvSignIn.setOnClickListener {
-            (activity as AppNavigator).display(R.id.navigation_register,
-                AppNavigator.NavigationType.Add, null)
+            appNavigator().display(R.id.navigation_register, AppNavigator.NavigationType.Add, null)
         }
     }
 
     override fun initData() {
-
     }
 
     override fun handleState(state: LoginContract.State) {
@@ -63,8 +64,12 @@ class LoginFragment : AbstractFragment<FragmentLoginBinding, LoginContract.State
             }
             is LoginContract.State.LoginSuccess -> {
                 binding.pbLoading.isVisible = false
+                activity?.onBackPressed()
             }
         }
+    }
+
+    override fun handleEffect(effect: Contract.PageEffect) {
     }
 
 }

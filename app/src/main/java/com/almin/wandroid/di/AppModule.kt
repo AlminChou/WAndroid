@@ -12,6 +12,7 @@ import com.almin.wandroid.middleware.ResourceProviderImpl
 import com.almin.wandroid.ui.AppViewModel
 import com.almin.wandroid.ui.module.home.HomeViewModel
 import com.almin.wandroid.ui.module.login.LoginViewModel
+import com.almin.wandroid.ui.module.mine.MineTabViewModel
 import com.almin.wandroid.ui.module.register.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -45,6 +46,6 @@ val appModule = module {
     viewModel { HomeViewModel(get(), get()) }
     viewModel { LoginViewModel(get(), get()) }
     viewModel { RegisterViewModel(get(), get()) }
-
+    viewModel { MineTabViewModel(get()) }
 
 }

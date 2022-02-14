@@ -40,7 +40,7 @@ internal object CustomScalarResponseBodyConverters {
                 try {
                     val responseJson = JSONObject(response)
                     if(responseJson.has(ApiResponse.API_RESULT_BODY_KEY) && !responseJson.isNull(ApiResponse.API_RESULT_BODY_KEY)){
-                        response = responseJson.opt(ApiResponse.API_RESULT_BODY_KEY).toString()
+                        response = responseJson.opt(ApiResponse.API_RESULT_BODY_KEY)?.toString()?:""
                     }else{
                         isJsonFile = true
                     }

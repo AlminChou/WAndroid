@@ -3,6 +3,7 @@ package com.almin.wandroid.ui.module.main
 import android.util.ArrayMap
 import android.view.View
 import com.almin.arch.ui.AbstractFragment
+import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageState
 import com.almin.arch.viewmodel.HolderViewModel
 import com.almin.wandroid.R
@@ -20,11 +21,11 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
  * Created by Almin on 2020/12/24.
  * can replace with TabFragmentNavigator
  */
-class MainFragment : AbstractFragment<FragmentMainBinding, PageState, HolderViewModel>(FragmentMainBinding::inflate){
+class MainFragment : AbstractFragment<FragmentMainBinding, PageState, Contract.PageEffect, HolderViewModel>(FragmentMainBinding::inflate){
 
     override val viewModel: HolderViewModel by sharedViewModel()
     private lateinit var navView: BottomNavigationView
-    private lateinit var tabFragments: ArrayMap<Int, AbsTabFragment<*,*,*>>
+    private lateinit var tabFragments: ArrayMap<Int, AbsTabFragment<*,*,*,*>>
 
 //    SavedStateHandle
 
@@ -94,6 +95,9 @@ class MainFragment : AbstractFragment<FragmentMainBinding, PageState, HolderView
     }
 
     override fun handleState(state: PageState) {
+    }
+
+    override fun handleEffect(effect: Contract.PageEffect) {
     }
 
     override fun onDestroy() {

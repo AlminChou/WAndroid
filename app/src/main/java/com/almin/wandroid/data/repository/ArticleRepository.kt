@@ -8,7 +8,7 @@ import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.data.model.RemoteKeys
 import com.almin.wandroid.data.network.api.ArticleApiService
-import com.almin.wandroid.ui.paging.remoteMediatorPage
+import com.almin.wandroid.ui.paging.remoteMediatorPager
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -30,7 +30,7 @@ class ArticleRepository(private val articleApiService: ArticleApiService, privat
 
 
     fun homePager() : Flow<PagingData<Article>> {
-        return remoteMediatorPage(config = PagingConfig(15, 1, true, 15), pagingSourceFactory = {
+        return remoteMediatorPager(config = PagingConfig(15, 1, true, 15), pagingSourceFactory = {
             appDataBase.article.queryArticleCache(ARTICLE_TYPE_HOME)
         }, keyQuery = {
             appDataBase.remoteKeys.getRemoteKeys(ARTICLE_TYPE_HOME)

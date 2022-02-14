@@ -21,7 +21,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 /**
  * Created by Almin on 2022/1/20.
  */
-class WebFragment : AbstractFragment<FragmentWebBinding, Contract.PageState, HolderViewModel>(FragmentWebBinding::inflate){
+class WebFragment : AbstractFragment<FragmentWebBinding, Contract.PageState, Contract.PageEffect,  HolderViewModel>(FragmentWebBinding::inflate){
 
     override val viewModel: HolderViewModel by viewModel()
 
@@ -87,6 +87,10 @@ class WebFragment : AbstractFragment<FragmentWebBinding, Contract.PageState, Hol
     }
 
     override fun initData() {
+    }
+
+    override fun handleEffect(effect: Contract.PageEffect) {
+
     }
 
 }
