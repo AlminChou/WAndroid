@@ -89,6 +89,7 @@ api(userRepository.login(account, password)){
 fun login(account: String, password: String) : Flow<Resource<UserInfo>>{
     return networkBoundResource(
         cacheQuery = {
+            // 读取缓存
             flow <UserInfo> {
                 val users = userDao.allUserInfo()
                 if(!users.isNullOrEmpty()){
@@ -97,12 +98,14 @@ fun login(account: String, password: String) : Flow<Resource<UserInfo>>{
             }
         },
         fetch = {
+            //api 网络请求 
             userApiService.login(account, password)
         },
         onFetchFailed = {
-
+         
         },
         saveFetchResult = {
+           // 保存缓存操作
             userDao.insert(it)
         },
         shouldFetch = {
