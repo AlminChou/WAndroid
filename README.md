@@ -143,7 +143,7 @@ suspend fun login(
 HomeFragment 特意采用了 Fragment 混合 Compose作为示例  -- （一边学习compose， compose开发真的快啊，一个列表ui一下子就完事 真爽）
 * 封装自定义 上拉刷新、下拉刷新、loadMore等状态 RefreshList控件
 
-#### 内置ext扩展函数
+#### 内置 PagingExt扩展函数
 * ViewModel.pager() （分页请求快速api） 
 * Repository.remoteMediatorPager () (使用自建key表 以及 RemoteMediator 、 room实现的分页缓存) //参考：https://developer.android.com/topic/libraries/architecture/paging/v3-network-db#remote-keys
 目前remoteMediator参考资料比较少，谷歌百度了很久，参考回来的还是会有问题（谷歌有的是把所有数据都存key，有的只存最后一个，2个都试过还是有点问题） 在不断对比与尝试修改下只能暂时做成这样，我当前发现的是 偶然间上拉会一瞬间瞬移到某个位置，上拉加载状态动画也会不自然，希望大佬们帮我看一眼指出修改
