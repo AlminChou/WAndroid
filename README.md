@@ -17,8 +17,8 @@
 
 #### mvi基建参考 ： https://proandroiddev.com/mvi-architecture-with-kotlin-flows-and-channels-d36820b2028d
 
-#### Activity 
-借用了Activity 共享viewModel 来存储全局常用的数据和状态，提供订阅 例如： user信息
+#### Activity Fragment共享viewModel
+借用了Activity 共享viewModel 来存储全局常用的数据和状态，提供订阅 例如： user信息 来做登录\退出状态的通知等
 
 #### ui基类
 * Androidx Fragment ，Activity， 全新权限申请api
