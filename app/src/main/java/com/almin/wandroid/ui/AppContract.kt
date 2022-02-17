@@ -17,7 +17,7 @@ interface AppContract {
         object UpdateUser: Event()
     }
 
-    sealed class State : Contract.PageState{
+    sealed class State : Contract.PageState(){
         object Idle : State()
         data class LoginSuccess(val userInfo: UserInfo) : State()
         object LogoutSuccess : State()

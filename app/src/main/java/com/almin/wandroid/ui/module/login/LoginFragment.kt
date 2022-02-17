@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import com.almin.arch.ui.AbstractFragment
 import com.almin.arch.viewmodel.Contract
+import com.almin.arch.viewmodel.LoadStatus
 import com.almin.wandroid.R
 import com.almin.wandroid.data.model.UserInfo
 import com.almin.wandroid.databinding.FragmentLoginBinding
@@ -54,15 +55,15 @@ class LoginFragment : AbsFragment<FragmentLoginBinding, LoginContract.State, Con
     }
 
     override fun handleState(state: LoginContract.State) {
-        when(state){
-            LoginContract.State.Logining -> {
+        when(state.loadStatus){
+            LoadStatus.Loading -> {
                 KeyboardUtils.hideSoftInput(activity)
                 binding.pbLoading.isVisible = true
             }
-            LoginContract.State.LoginFailed -> {
+            LoadStatus.LoadFailed -> {
                 binding.pbLoading.isVisible = false
             }
-            is LoginContract.State.LoginSuccess -> {
+            LoadStatus.Finish -> {
                 binding.pbLoading.isVisible = false
                 activity?.onBackPressed()
             }

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.chad.library.adapter.base.entity.MultiItemEntity
 import kotlinx.parcelize.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -36,7 +37,7 @@ data class Article(
     var userId: Int,
     var visible: Int,
     var zan: Int,
-    var articleType: Int = -1) : Parcelable {
+    var articleType: Int = -1) : Parcelable, MultiItemEntity {
 
 
     val isTop: Boolean
@@ -47,4 +48,16 @@ data class Article(
         get(){
             return fresh
         }
+
+    override val itemType: Int
+        get() {
+            return articleType
+        }
+
+
+    companion object{
+        const val ARTICLE_TYPE_HOME = 0
+        const val ARTICLE_TYPE_COLLECT = 1
+        const val ARTICLE_TYPE_PROJECT = 2
+    }
 }

@@ -1,7 +1,6 @@
 package com.almin.arch.viewmodel
 
 import android.os.Bundle
-import com.almin.arch.viewmodel.Contract.LoadStatus
 import com.almin.arch.viewmodel.Contract.PageEvent
 import com.almin.arch.viewmodel.Contract.PageState
 
@@ -18,10 +17,8 @@ class HolderViewModel : AbstractViewModel<PageState, PageEvent, Contract.PageEff
     }
 
 
-    sealed class State : PageState {
-        object Default: State() {
-            override val loadingState: LoadStatus = LoadStatus.Default
-        }
+    sealed class State : PageState() {
+        object Default: State()
     }
 
 

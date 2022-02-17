@@ -5,6 +5,7 @@ import androidx.paging.PagingData
 import com.almin.arch.repository.Repository
 import com.almin.wandroid.data.db.AppDataBase
 import com.almin.wandroid.data.model.Article
+import com.almin.wandroid.data.model.Article.Companion.ARTICLE_TYPE_HOME
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.data.model.RemoteKeys
 import com.almin.wandroid.data.network.api.ArticleApiService
@@ -15,10 +16,6 @@ import kotlinx.coroutines.flow.Flow
  * Created by Almin on 2022/1/11.
  */
 class ArticleRepository(private val articleApiService: ArticleApiService, private val appDataBase: AppDataBase) : Repository() {
-    companion object{
-        const val ARTICLE_TYPE_HOME = 0
-        const val ARTICLE_TYPE_COLLECT = 1
-    }
 
     suspend fun getBanner(): List<Banner> {
         return articleApiService.getBanner()

@@ -6,8 +6,11 @@ import com.almin.arch.middleware.MiddleWareProvider
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.repository.Status
 import com.almin.arch.viewmodel.Contract
+import com.almin.arch.viewmodel.LoadStatus
 import com.almin.wandroid.data.model.UserInfo
 import com.almin.wandroid.data.repository.UserRepository
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 /**
@@ -16,7 +19,7 @@ import kotlinx.coroutines.launch
 class LoginViewModel(middleWareProvider: MiddleWareProvider, private val userRepository: UserRepository)
     : AbstractViewModel<LoginContract.State, LoginContract.Event, Contract.PageEffect>(middleWareProvider) {
 
-    override fun initialState(): LoginContract.State = LoginContract.State.Default
+    override fun initialState(): LoginContract.State = LoginContract.State()
 
     override fun attach(arguments: Bundle?) {
     }
@@ -26,25 +29,25 @@ class LoginViewModel(middleWareProvider: MiddleWareProvider, private val userRep
 //            flow {
 //                emit(userRepository.login(account, password))
 //            }.onStart {
-//                setState { LoginContract.State.Logining }
+//                setState { copy(loadStatus = LoadStatus.Loading)}
 //            }.apiCatch {
-//                setState { LoginContract.State.LoginFailed }
+//                setState { copy(loadStatus = LoadStatus.LoadFailed) }
 //            }.collect{
-//                setState { LoginContract.State.LoginSuccess(it) }
+//                setState { copy(userInfo = it, loadStatus = LoadStatus.Finish)}
 //            }
 //        }
 
         api(userRepository.login(account, password)){
             prepare {
-                setState { LoginContract.State.Logining }
+                setState { copy(loadStatus = LoadStatus.Loading)}
             }
             cache {
             }
             success {
-                setState { LoginContract.State.LoginSuccess(it) }
+                setState { copy(userInfo = it, loadStatus = LoadStatus.Finish)}
             }
             failed {
-                setState { LoginContract.State.LoginFailed }
+                setState { copy(loadStatus = LoadStatus.LoadFailed) }
             }
         }
     }

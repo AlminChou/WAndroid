@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.almin.arch.ui.AbstractFragment
 import com.almin.arch.viewmodel.Contract
+import com.almin.arch.viewmodel.LoadStatus
 import com.almin.wandroid.R
 import com.almin.wandroid.databinding.FragmentSigninBinding
 import com.almin.wandroid.ui.base.AbsFragment
@@ -48,12 +49,12 @@ class RegisterFragment : AbsFragment<FragmentSigninBinding, RegisterContract.Sta
     }
 
     override fun handleState(state: RegisterContract.State) {
-        when(state){
-            RegisterContract.State.SignIning -> {
+        when(state.loadStatus){
+            LoadStatus.Loading -> {
                 KeyboardUtils.hideSoftInput(activity)
                 binding.pbLoading.isVisible = true
             }
-            RegisterContract.State.SignInSuccess -> {
+            LoadStatus.Finish -> {
                 binding.pbLoading.isVisible = false
                 appNavigator().backTo(R.id.navigation_main, false)
             }

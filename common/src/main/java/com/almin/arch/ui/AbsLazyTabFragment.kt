@@ -15,7 +15,7 @@ import com.almin.arch.viewmodel.Contract.PageState
  * Created by Almin on 2019-07-18.
  * 懒加载fragment, 日后用 FragmentTransaction#setMaxLifecycle(Fragment, Lifecycle.State) 重新实现
  */
-abstract class AbsLazyFragment<VB : ViewBinding, S: PageState, Effect: PageEffect, VM : AbstractViewModel<S,*, Effect>>(
+abstract class AbsLazyTabFragment<VB : ViewBinding, S: PageState, Effect: PageEffect, VM : AbstractViewModel<S,*, Effect>>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : AbstractFragment<VB,S,Effect,VM>(inflate) {
 
     /**
@@ -56,7 +56,7 @@ abstract class AbsLazyFragment<VB : ViewBinding, S: PageState, Effect: PageEffec
     }
 
     /**
-     * 如果是与ViewPager一起使用，调用的是setUserVisibleHint
+     * 如果是与ViewPager2 不会调用
      *
      * @param isVisibleToUser 是否显示出来了
      */

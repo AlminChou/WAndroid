@@ -33,29 +33,29 @@
 #### dsl语法封装请求 - 封装在基类ViewModel 以及 基类Repository
 默认flow形式请求
 ```kotlin
- viewModelScope.launch {
+viewModelScope.launch {
     flow {
         emit(userRepository.login(account, password))
     }.onStart {
-        setState { LoginContract.State.Logining }
+        setState { copy(loadStatus = LoadStatus.Loading)}
     }.apiCatch {
-        setState { LoginContract.State.LoginFailed }
+        setState { copy(loadStatus = LoadStatus.LoadFailed) }
     }.collect{
-        setState { LoginContract.State.LoginSuccess(it) }
+        setState { copy(userInfo = it, loadStatus = LoadStatus.Finish)}
     }
- }
+}
 
 ```
 1.简约请求 
 ```kotlin
-api<UserInfo> {
-    call { userRepository.register(account, password, repeat) }
-    prepare { setState { RegisterContract.State.SignIning} }
+ api<UserInfo> {
+    call { userRepository.login(account, password) }
+    prepare { setState { copy(loadStatus = LoadStatus.Loading)} }
     success {
-        setState { RegisterContract.State.SignInSuccess}
+        setState { copy(userInfo = it, loadStatus = LoadStatus.Finish)}
     }
     failed {
-        setState { RegisterContract.State.SignInFailed }
+        setState { copy(loadStatus = LoadStatus.LoadFailed) }
     }
 }
 ```
@@ -74,15 +74,15 @@ sealed class Category {
 // LoginViewModel
 api(userRepository.login(account, password)){
     prepare {
-        setState { LoginContract.State.Logining }
+        setState { copy(loadStatus = LoadStatus.Loading)}
     }
     cache {
     }
     success {
-        setState { LoginContract.State.LoginSuccess(it) }
+        setState { copy(userInfo = it, loadStatus = LoadStatus.Finish)}
     }
-    failed {
-        setState { LoginContract.State.LoginFailed } 
+     failed {
+        setState { copy(loadStatus = LoadStatus.LoadFailed) }
     }
 }
 // UserRepository

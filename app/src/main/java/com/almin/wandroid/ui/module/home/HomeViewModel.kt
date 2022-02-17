@@ -12,6 +12,7 @@ import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageEvent
 import com.almin.arch.viewmodel.Contract.PageState
+import com.almin.arch.viewmodel.LoadStatus
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.ui.paging.pager
@@ -73,13 +74,13 @@ class HomeViewModel(middleWareProvider: MiddleWareProvider, private val articleR
             bannerFlow.zip(articlesFlow){ bannerList, articleList ->
                 delay(1000)
                 _isRefreshing.emit(false)
-                viewStates = viewStates.copy(banners = bannerList, topArticles = articleList, loadingState = Contract.LoadStatus.Finish)
+                viewStates = viewStates.copy(banners = bannerList, topArticles = articleList, loadStatus = LoadStatus.Finish)
             }.onStart {
                 _isRefreshing.emit(true)
-                viewStates = viewStates.copy(loadingState = Contract.LoadStatus.Loading)
+                viewStates = viewStates.copy(loadStatus = LoadStatus.Loading)
             }.catch {
                 delay(1000)
-                viewStates = viewStates.copy(loadingState = Contract.LoadStatus.LoadFailed)
+                viewStates = viewStates.copy(loadStatus = LoadStatus.LoadFailed)
                 _isRefreshing.emit(false)
             }.collect()
         }

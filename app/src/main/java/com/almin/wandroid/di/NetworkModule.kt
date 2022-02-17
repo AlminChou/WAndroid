@@ -5,6 +5,7 @@ import com.almin.arch.network.RetrofitClientProvider
 import com.almin.arch.network.RetrofitConfiguration
 import com.almin.arch.network.TokenProvider
 import com.almin.wandroid.data.network.api.ArticleApiService
+import com.almin.wandroid.data.network.api.ProjectApiService
 import com.almin.wandroid.data.network.converter.scalar.CustomScalarsConverterFactory
 import com.almin.wandroid.data.network.api.UserApiService
 import com.almin.wandroid.data.network.converter.type.CustomMoshiConverterFactory
@@ -69,4 +70,5 @@ val networkModule = module{
 
     single { get<RetrofitClientProvider>().createService(UserApiService::class.java) }
     single { get<RetrofitClientProvider>().createService(ArticleApiService::class.java) }
+    single { get<RetrofitClientProvider>().createService(ProjectApiService::class.java) }
 }

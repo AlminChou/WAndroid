@@ -99,6 +99,10 @@ dependencies {
 //    implementation "com.google.accompanist:accompanist-systemuicontroller:0.21.2-beta"
 
     implementation 'com.iqiyi.xcrash:xcrash-android-lib:3.0.0'
+
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.7'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
 
 kapt{

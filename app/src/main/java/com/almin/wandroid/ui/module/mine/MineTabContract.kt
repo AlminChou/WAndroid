@@ -6,7 +6,7 @@ import com.almin.arch.viewmodel.Contract
  * Created by Almin on 2022/2/11.
  */
 interface MineTabContract {
-    sealed class PageState : Contract.PageState{
+    sealed class PageState : Contract.PageState(){
         object Idle : PageState()
     }
 

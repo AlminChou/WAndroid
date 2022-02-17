@@ -36,7 +36,7 @@ import com.almin.arch.viewmodel.Contract.PageState
 import com.almin.wandroid.R
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
-import com.almin.wandroid.databinding.FragmentHomeBinding
+import com.almin.wandroid.databinding.FragmentTabHomeBinding
 import com.almin.wandroid.ui.AppContract
 import com.almin.wandroid.ui.base.AbsTabFragment
 import com.almin.wandroid.ui.compose.RefreshLazyColumn
@@ -57,7 +57,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 // compose demo doc : https://docs.compose.net.cn/design/animation/animatestate/
 // paging3 loadmore : https://medium.com/simform-engineering/list-view-with-pagination-using-jetpack-compose-e131174eac8e
 
-class HomeFragment : AbsTabFragment<FragmentHomeBinding, PageState, Contract.PageEffect, HomeViewModel>(FragmentHomeBinding::inflate) {
+// 推荐 + 每日一问
+class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.PageEffect, HomeViewModel>(FragmentTabHomeBinding::inflate) {
     //    sharedViewModel
     override val viewModel: HomeViewModel by viewModel()
 

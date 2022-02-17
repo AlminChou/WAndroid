@@ -9,10 +9,10 @@ import com.almin.arch.viewmodel.HolderViewModel
 import com.almin.wandroid.R
 import com.almin.wandroid.databinding.FragmentMainBinding
 import com.almin.wandroid.ui.base.AbsTabFragment
-import com.almin.wandroid.ui.module.dashboard.DashboardFragment
+import com.almin.wandroid.ui.module.project.ProjectTabFragment
 import com.almin.wandroid.ui.module.home.HomeFragment
 import com.almin.wandroid.ui.module.mine.MineTabFragment
-import com.almin.wandroid.ui.module.notifications.NotificationsFragment
+import com.almin.wandroid.ui.module.portal.PortalTabFragment
 import com.almin.wandroid.ui.navigator.AppNavigator
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -48,13 +48,13 @@ class MainFragment : AbstractFragment<FragmentMainBinding, PageState, Contract.P
     private fun initTabPage() {
         tabFragments = ArrayMap()
         tabFragments[R.id.navigation_home] = HomeFragment()
-        tabFragments[R.id.navigation_dashboard] = DashboardFragment()
-        tabFragments[R.id.navigation_notifications] = NotificationsFragment()
+        tabFragments[R.id.navigation_protal] = PortalTabFragment()
+        tabFragments[R.id.navigation_project] = ProjectTabFragment()
         tabFragments[R.id.navigation_mine] = MineTabFragment()
 
         navigate(R.id.navigation_home, true)
-        navigate(R.id.navigation_notifications, true)
-        navigate(R.id.navigation_dashboard, true)
+        navigate(R.id.navigation_project, true)
+        navigate(R.id.navigation_protal, true)
         navigate(R.id.navigation_mine, true)
 
         // default
@@ -82,7 +82,7 @@ class MainFragment : AbstractFragment<FragmentMainBinding, PageState, Contract.P
     override fun handleOnBackPressed(): Boolean {
         if(childFragmentManager.primaryNavigationFragment == null) return false
 
-        println("  hildFragmentManager.primaryNavigationFragment  ${childFragmentManager.primaryNavigationFragment}")
+        println("  hideFragmentManager.primaryNavigationFragment  ${childFragmentManager.primaryNavigationFragment}")
         when(childFragmentManager.primaryNavigationFragment){
             is HomeFragment -> {
                 (activity as AppNavigator).exit()

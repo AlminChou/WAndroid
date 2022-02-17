@@ -9,19 +9,19 @@
         android:id="@+id/navigation_home"
         android:name="com.almin.wandroid.ui.module.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_tab_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.almin.wandroid.ui.module.dashboard.DashboardFragment"
+        android:id="@+id/navigation_protal"
+        android:name="com.almin.wandroid.ui.module.project.ProjectTabFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_tab_project" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.almin.wandroid.ui.module.notifications.NotificationsFragment"
+        android:id="@+id/navigation_project"
+        android:name="com.almin.wandroid.ui.module.portal.PortalTabFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_tab_portal" />
 
 
     <fragment

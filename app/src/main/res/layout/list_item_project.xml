@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="12dp"
+            android:textColor="@color/c_ff0c0c1c"
+            android:textSize="13sp"
+            tools:text="author" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintTop_toTopOf="@id/tv_author"
+            app:layout_constraintBottom_toBottomOf="@id/tv_author"
+            app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@color/c_ff0c0c1c"
+            android:textSize="13sp"
+            tools:text="1小时前" />
+
+
+        <ImageView
+            android:id="@+id/iv_project"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_author"
+            app:layout_constraintLeft_toLeftOf="@id/tv_author"
+            app:layout_constraintRight_toLeftOf="@id/tv_title"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="@color/c_ff0c0c1c"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@id/iv_project"
+            app:layout_constraintTop_toTopOf="@id/iv_project"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/tv_desc"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="6dp"
+            android:text="title"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_project"
+            app:layout_constraintRight_toRightOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintLeft_toLeftOf="@id/tv_title"
+            android:ellipsize="end"
+            android:includeFontPadding="true"
+            android:lineSpacingMultiplier="1.4"
+            android:maxLines="3"
+            android:textColor="@color/c_b32a3c58"
+            android:textSize="13sp"
+            tools:text="一个Jetpack结合MVVM的快速开发框架，基于MVVM模式集成谷歌官方推荐的JetPack组件库：LiveData、ViewModel、Lifecycle组件 使用Kotlin语言，添加大量拓展函数，简化代码 加入Retrofit网络请求,协程，帮你简化各种操作，让你快速开发项目" />
+
+
+        <ImageView
+            android:id="@+id/iv_collect"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_collect_default_grey"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_project"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+
+

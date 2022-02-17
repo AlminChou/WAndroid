@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.viewbinding.ViewBinding
-import com.almin.arch.ui.AbsLazyFragment
+import com.almin.arch.ui.AbsLazyTabFragment
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageEvent
@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.sharedViewModel
  * tab base fragment
  */
 abstract class AbsTabFragment<VB : ViewBinding, S: PageState, Effect: Contract.PageEffect, VM : AbstractViewModel<S,*, Effect>>(private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB)
-    : AbsLazyFragment<VB,S,Effect,VM>(inflate){
+    : AbsLazyTabFragment<VB,S,Effect,VM>(inflate){
 
     protected val appViewModel: AppViewModel by sharedViewModel()
 
