@@ -8,6 +8,7 @@ import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Project
 import com.almin.wandroid.data.model.ProjectTabInfo
 import com.almin.wandroid.data.repository.ProjectRepository
+import kotlinx.coroutines.delay
 
 class ProjectViewModel(private val projectRepository: ProjectRepository) : AbstractViewModel<ProjectContract.PageState,ProjectContract.PageEvent, Contract.PageEffect>(null) {
 
@@ -25,24 +26,31 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : Abstr
                 currentPage = 0
                 loadProjectList(currentPage)
             }
+            is ProjectContract.PageEvent.LoadNextProjectList -> {
+                loadProjectList(currentPage)
+            }
         }
     }
 
     private fun loadProjectList(page: Int) {
+        val isLoadMore = page != 0
         api<List<Article>> {
             call {
                 val pager = projectRepository.getLatestProjectList(page)
                 currentPage = pager.curPage
+                delay(1000) // 展示动画
                 pager.datas
             }
-            prepare {  }
+            prepare {
+                setState { copy(loadStatus = if(isLoadMore) LoadStatus.LoadMore else LoadStatus.Refresh) }
+            }
             success {
-                setState { copy(projects = it, loadStatus = LoadStatus.Finish) }
+                setState { copy(projects = it, loadStatus = if(isLoadMore) LoadStatus.LoadMoreFinish else LoadStatus.Finish) }
             }
             failed {
+                setState { copy(loadStatus = if(isLoadMore) LoadStatus.LoadMoreFailed else LoadStatus.LoadFailed) }
             }
         }
-
     }
 
     private fun loadProjectCategory(){

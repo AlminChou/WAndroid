@@ -17,6 +17,7 @@ interface ProjectContract {
     sealed class PageEvent : Contract.PageEvent{
         object LoadCategoryTab : PageEvent()
         object LoadProjectListByTab : PageEvent()
+        object LoadNextProjectList : PageEvent()
     }
 
 }
