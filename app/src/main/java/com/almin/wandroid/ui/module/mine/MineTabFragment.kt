@@ -12,6 +12,7 @@ import com.almin.wandroid.databinding.FragmentTabMineBinding
 import com.almin.wandroid.ui.AppContract
 import com.almin.wandroid.ui.base.AbsTabFragment
 import com.almin.wandroid.ui.base.ConfirmFragmentDialog
+import com.almin.wandroid.ui.base.singleClick
 import com.almin.wandroid.ui.navigator.AppNavigator
 import com.almin.wandroid.ui.navigator.appNavigator
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -25,16 +26,16 @@ class MineTabFragment : AbsTabFragment<FragmentTabMineBinding, MineTabContract.P
     override val viewModel: MineTabViewModel by viewModel()
 
     override fun initView(rootView: View) {
-        binding.tvLogin.setOnClickListener {
+        binding.tvLogin.singleClick{
             appViewModel.setEvent(AppContract.Event.Login)
         }
-        binding.clLogout.setOnClickListener {
+        binding.clLogout.singleClick {
             viewModel.setEvent(MineTabContract.PageEvent.Logout)
         }
-        binding.clWanPage.setOnClickListener {
+        binding.clWanPage.singleClick {
             viewModel.setEvent(MineTabContract.PageEvent.ClickWanLink)
         }
-        binding.clIntegral.setOnClickListener {
+        binding.clIntegral.singleClick {
             viewModel.setEvent(MineTabContract.PageEvent.ClickIntegralRule)
         }
     }

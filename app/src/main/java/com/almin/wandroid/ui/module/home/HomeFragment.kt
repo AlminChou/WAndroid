@@ -39,6 +39,7 @@ import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.databinding.FragmentTabHomeBinding
 import com.almin.wandroid.ui.AppContract
 import com.almin.wandroid.ui.base.AbsTabFragment
+import com.almin.wandroid.ui.base.ClickHelper
 import com.almin.wandroid.ui.compose.RefreshLazyColumn
 import com.almin.wandroid.ui.navigator.AppNavigator
 import com.almin.wandroid.ui.navigator.appNavigator
@@ -159,7 +160,6 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .height(8.dp)){
-
                 }
             }else{
                 val bannerState = rememberPagerState()
@@ -183,7 +183,7 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                             .padding(8.dp)
                             .height(200.dp)
                             .clickable {
-                                click(banners[page])
+                                ClickHelper.debounceClicks { click(banners[page]) }
                             }
                             .clip(RoundedCornerShape(8.dp)),
                         painter = rememberCoilPainter(request = banners[page].imagePath),
@@ -209,7 +209,7 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                 .fillMaxWidth()
                 .padding(8.dp, 0.dp, 8.dp, 0.dp)
                 .wrapContentHeight()
-                .clickable { onClick() }, elevation = 5.dp) {
+                .clickable { ClickHelper.debounceClicks { onClick() } }, elevation = 5.dp) {
                 ConstraintLayout {
                     val (author, title, releaseTime, tags, chapter, collect) = createRefs()
                     Text(text = item.author.ifEmpty { item.shareUser },
@@ -255,13 +255,14 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                         change = false
                     }
                     IconButton(onClick = {
-                        if(appViewModel.isLogined()){
+                        ClickHelper.debounceClicks {
+                            if(appViewModel.isLogined()){
 //                        isCollect = !isCollect
-                            item.collect = !item.collect
-                            change = true
-                        }else{
-                            appViewModel.setEvent(AppContract.Event.Login)
-                        }
+                                item.collect = !item.collect
+                                change = true
+                            }else{
+                                appViewModel.setEvent(AppContract.Event.Login)
+                            } }
                     }, modifier = Modifier.constrainAs(collect){
                         bottom.linkTo(parent.bottom)
                         end.linkTo(parent.end)

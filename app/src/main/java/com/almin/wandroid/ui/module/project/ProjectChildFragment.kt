@@ -12,6 +12,7 @@ import com.almin.wandroid.R
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.databinding.FragmentTabProjectChildBinding
 import com.almin.wandroid.ui.base.ArticleAdapter
+import com.almin.wandroid.ui.base.singleItemClick
 import com.almin.wandroid.ui.navigator.AppNavigator
 import com.almin.wandroid.ui.navigator.appNavigator
 import com.chad.library.adapter.base.listener.OnItemClickListener
@@ -52,13 +53,13 @@ class ProjectChildFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding,
         binding.refreshLayout.setOnRefreshListener {
             viewModel.setEvent(ProjectContract.PageEvent.LoadProjectListByTab)
         }
-        adapter.setOnItemClickListener(OnItemClickListener { adapter, view, position ->
+        adapter.singleItemClick{ adapter, view, position ->
             val item: Article = adapter.data[position] as Article
             appNavigator().display(
                 R.id.navigation_web,
                 AppNavigator.NavigationType.Add, bundleOf("url" to item.link, "title" to item.title)
             )
-        })
+        }
     }
 
     override fun lazyLoadData() {
