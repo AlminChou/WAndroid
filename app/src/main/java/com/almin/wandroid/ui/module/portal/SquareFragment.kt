@@ -1,4 +1,4 @@
-package com.almin.wandroid.ui.module.project
+package com.almin.wandroid.ui.module.portal
 
 import android.graphics.Rect
 import android.view.View
@@ -10,7 +10,6 @@ import com.almin.arch.ui.AbsLazyPageFragment
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.LoadStatus
 import com.almin.wandroid.R
-import com.almin.wandroid.const.Key.BUNDLE_KEY_PROJECT_CATEGORY_ID
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.databinding.FragmentTabProjectChildBinding
 import com.almin.wandroid.ui.module.common.ArticleAdapter
@@ -19,21 +18,14 @@ import com.almin.wandroid.ui.navigator.AppNavigator
 import com.almin.wandroid.ui.navigator.appNavigator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 /**
- * Created by Almin on 2022/2/15.
+ * Created by Almin on 2022/3/18.
+ * 体系、导航 标签入口
  */
-class ProjectChildFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding, ProjectContract.PageState, Contract.PageEffect, ProjectViewModel>(FragmentTabProjectChildBinding::inflate) {
+class SquareFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding, PortalContract.PageState, Contract.PageEffect, PortalViewModel>(
+    FragmentTabProjectChildBinding::inflate) {
 
-    companion object{
-        fun instance(categoryId: Int) : ProjectChildFragment{
-            val fragment = ProjectChildFragment()
-            fragment.arguments = bundleOf(BUNDLE_KEY_PROJECT_CATEGORY_ID to categoryId)
-            return fragment
-        }
-    }
-
-    override val viewModel: ProjectViewModel by viewModel()
+    override val viewModel: PortalViewModel by viewModel()
     private lateinit var adapter: ArticleAdapter
 
     override fun initView(rootView: View) {
@@ -55,11 +47,11 @@ class ProjectChildFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding,
         })
         adapter.loadMoreModule.isAutoLoadMore = true
         adapter.loadMoreModule.setOnLoadMoreListener { //上拉加载时取消下拉刷新
-            viewModel.setEvent(ProjectContract.PageEvent.LoadProjectListByTab(false))
+            viewModel.setEvent(PortalContract.PageEvent.LoadSquareList(true))
         }
 
         binding.refreshLayout.setOnRefreshListener {
-            viewModel.setEvent(ProjectContract.PageEvent.LoadProjectListByTab(true))
+            viewModel.setEvent(PortalContract.PageEvent.LoadSquareList(true))
         }
         adapter.singleItemClick{ adapter, view, position ->
             val item: Article = adapter.data[position] as Article
@@ -71,10 +63,10 @@ class ProjectChildFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding,
     }
 
     override fun lazyLoadData() {
-        viewModel.setEvent(ProjectContract.PageEvent.LoadProjectListByTab(true))
+        viewModel.setEvent(PortalContract.PageEvent.LoadSquareList(false))
     }
 
-    override fun handleState(state: ProjectContract.PageState) {
+    override fun handleState(state: PortalContract.PageState) {
         when(state.loadStatus){
             LoadStatus.LoadMore -> {
                 binding.refreshLayout.isRefreshing = false
@@ -85,7 +77,7 @@ class ProjectChildFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding,
             }
             LoadStatus.LoadMoreFinish -> {
                 adapter.loadMoreModule.loadMoreComplete()
-                state.projects?.let { adapter.addData(it) }
+                state.articles?.let { adapter.addData(it) }
             }
             LoadStatus.LoadFailed ->{
                 adapter.loadMoreModule.isEnableLoadMore = false
@@ -100,7 +92,7 @@ class ProjectChildFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding,
             LoadStatus.Finish -> {
                 adapter.loadMoreModule.isEnableLoadMore = true
                 binding.refreshLayout.isRefreshing = false
-                adapter.setNewInstance(state.projects?.toMutableList())
+                adapter.setNewInstance(state.articles?.toMutableList())
             }
         }
     }

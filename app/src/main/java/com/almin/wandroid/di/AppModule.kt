@@ -7,6 +7,7 @@ import com.almin.wandroid.data.repository.ArticleRepository
 import com.almin.wandroid.data.repository.UserRepository
 import com.almin.arch.middleware.ResourceProvider
 import com.almin.wandroid.data.db.AppDataBase
+import com.almin.wandroid.data.repository.PortalRepository
 import com.almin.wandroid.data.repository.ProjectRepository
 import com.almin.wandroid.middleware.ApiExceptionHandler
 import com.almin.wandroid.middleware.ResourceProviderImpl
@@ -14,6 +15,7 @@ import com.almin.wandroid.ui.AppViewModel
 import com.almin.wandroid.ui.module.home.HomeViewModel
 import com.almin.wandroid.ui.module.login.LoginViewModel
 import com.almin.wandroid.ui.module.mine.MineTabViewModel
+import com.almin.wandroid.ui.module.portal.PortalViewModel
 import com.almin.wandroid.ui.module.project.ProjectViewModel
 import com.almin.wandroid.ui.module.register.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -43,6 +45,7 @@ val appModule = module {
     single { ArticleRepository(get(), get()) }
     single { UserRepository(get(), get()) }
     single { ProjectRepository(get()) }
+    single { PortalRepository(get(), get()) }
 
 
     viewModel { AppViewModel(get(), get()) }
@@ -52,5 +55,6 @@ val appModule = module {
     viewModel { RegisterViewModel(get(), get()) }
     viewModel { ProjectViewModel(get()) }
     viewModel { MineTabViewModel(get()) }
+    viewModel { PortalViewModel(get(), get()) }
 
 }

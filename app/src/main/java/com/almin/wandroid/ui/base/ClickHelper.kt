@@ -1,7 +1,6 @@
 package com.almin.wandroid.ui.base
 
 import android.view.View
-import androidx.compose.ui.Modifier
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener

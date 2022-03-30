@@ -7,6 +7,7 @@ import com.almin.wandroid.data.db.AppDataBase
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Article.Companion.ARTICLE_TYPE_HOME
 import com.almin.wandroid.data.model.Banner
+import com.almin.wandroid.data.model.PagerResponse
 import com.almin.wandroid.data.model.RemoteKeys
 import com.almin.wandroid.data.network.api.ArticleApiService
 import com.almin.wandroid.ui.paging.remoteMediatorPager
@@ -45,4 +46,11 @@ class ArticleRepository(private val articleApiService: ArticleApiService, privat
         })
     }
 
+
+    suspend fun getSquareFeedList(pageIndex: Int) : PagerResponse<Article> {
+        val rsp = articleApiService.getSquareData(pageIndex)
+        rsp.datas.map { it.articleType = Article.ARTICLE_TYPE_SQUARE }
+        return rsp
+    }
 }
+

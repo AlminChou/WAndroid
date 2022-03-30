@@ -3,6 +3,7 @@ package com.almin.wandroid.data.network.api
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.ArticlePageRsp
 import com.almin.wandroid.data.model.Banner
+import com.almin.wandroid.data.model.PagerResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -28,5 +29,13 @@ interface ArticleApiService {
      */
     @GET("article/list/{page}/json")
     suspend fun getArticleList(@Path("page") page: Int): ArticlePageRsp
+
+
+    /*
+     * 广场列表
+     */
+    @GET("user_article/list/{page}/json")
+    suspend fun getSquareData(@Path("page") page: Int): PagerResponse<Article>
+
 
 }

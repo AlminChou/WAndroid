@@ -19,8 +19,6 @@ class ProjectRepository(private val projectApiService: ProjectApiService) : Repo
         return ProjectTabInfo(titleList, category)
     }
 
-    suspend fun getProjectList(type: Int, pageNo: Int) = projectApiService.getProjecListByType(type, pageNo)
-
     suspend fun getLatestProjectList(pageNo: Int) : PagerResponse<Article> {
         val pager = projectApiService.getLatestProjectList(pageNo)
         pager.datas.forEach {
@@ -29,4 +27,11 @@ class ProjectRepository(private val projectApiService: ProjectApiService) : Repo
         return pager
     }
 
+    suspend fun getProjectListByCategoryId(cid: Int, pageNo: Int) : PagerResponse<Article> {
+        val pager = projectApiService.getProjecListByType(pageNo, cid = cid)
+        pager.datas.forEach {
+            it.articleType = Article.ARTICLE_TYPE_PROJECT
+        }
+        return pager
+    }
 }

@@ -84,8 +84,9 @@ dependencies {
     implementation "androidx.compose.compiler:compiler:1.1.0-rc02"
 
     implementation "androidx.constraintlayout:constraintlayout-compose:+"
-    implementation "com.google.accompanist:accompanist-pager:+"
-    implementation "com.google.accompanist:accompanist-pager-indicators:+"
+    // 新版本 会滑动卡住
+    implementation "com.google.accompanist:accompanist-pager:0.20.2"
+    implementation "com.google.accompanist:accompanist-pager-indicators:0.20.2"
     implementation "com.google.accompanist:accompanist-placeholder:+"
     implementation "com.google.accompanist:accompanist-swiperefresh:+"
     //paging分页库

@@ -16,4 +16,4 @@ data class ProjectCategory(var children: List<String> = listOf(),
                            var userControlSetTop: Boolean = false,
                            var visible: Int = 0) : Parcelable
 
-data class ProjectTabInfo(val titleList: List<String>, val category: List<ProjectCategory>)
+data class ProjectTabInfo(var titleList: List<String>, val category: List<ProjectCategory>)

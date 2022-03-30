@@ -166,11 +166,10 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                 //自动滚动
                 LaunchedEffect(bannerState.currentPage) {
                     if (bannerState.pageCount > 0) {
-                        delay(2000)
+                        delay(3000)
                         bannerState.animateScrollToPage((bannerState.currentPage + 1) % (bannerState.pageCount))
                     }
                 }
-
                 HorizontalPager(
                     modifier = Modifier
                         .fillMaxWidth()

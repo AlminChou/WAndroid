@@ -59,5 +59,6 @@ data class Article(
         const val ARTICLE_TYPE_HOME = 0
         const val ARTICLE_TYPE_COLLECT = 1
         const val ARTICLE_TYPE_PROJECT = 2
+        const val ARTICLE_TYPE_SQUARE = 3
     }
 }
