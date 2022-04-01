@@ -80,12 +80,15 @@ class TagFragment : AbsLazyPageFragment<FragmentTabProjectChildBinding, PortalCo
         when(state.loadStatus){
             LoadStatus.LoadMore -> {
                 binding.refreshLayout.isRefreshing = false
+                binding.refreshLayout.isEnabled = false
                 adapter.loadMoreModule.loadMoreToLoading()
             }
             LoadStatus.LoadMoreFailed -> {
+                binding.refreshLayout.isEnabled = true
                 adapter.loadMoreModule.loadMoreFail()
             }
             LoadStatus.LoadMoreFinish -> {
+                binding.refreshLayout.isEnabled = true
                 adapter.loadMoreModule.loadMoreComplete()
                 state.articles?.let { adapter.addData(it) }
             }

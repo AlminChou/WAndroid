@@ -11,6 +11,11 @@ import com.almin.arch.viewmodel.Contract.PageState
 abstract class AbsLazyPageFragment<VB : ViewBinding, S: PageState, Effect: PageEffect, VM : AbstractViewModel<S,*, Effect>>(
     private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : AbstractFragment<VB,S,Effect,VM>(inflate) {
 
+    // 一般都是子fragment 不需要添加
+    override fun addBackPressedCallback(): Boolean {
+        return false
+    }
+
     /**
      * 是否第一次加载
      */
