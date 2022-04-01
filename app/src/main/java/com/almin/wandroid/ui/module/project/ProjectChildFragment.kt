@@ -17,6 +17,7 @@ import com.almin.wandroid.ui.module.common.ArticleAdapter
 import com.almin.wandroid.ui.base.singleItemClick
 import com.almin.wandroid.ui.navigator.AppNavigator
 import com.almin.wandroid.ui.navigator.appNavigator
+import com.blankj.utilcode.util.LogUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

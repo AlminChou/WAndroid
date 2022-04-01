@@ -32,6 +32,7 @@ class ArticleAdapter(data: MutableList<Article>?) : BaseMultiItemQuickAdapter<Ar
             holder.setText(R.id.tv_author, author.ifEmpty { shareUser })
             holder.setText(R.id.tv_title, title)
             holder.setText(R.id.tv_time, niceDate)
+            holder.setText(R.id.tv_category, chapterName)
         }
         holder.getView<ImageView>(R.id.iv_collect)
     }

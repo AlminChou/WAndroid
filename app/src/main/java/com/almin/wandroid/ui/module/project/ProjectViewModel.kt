@@ -10,6 +10,7 @@ import com.almin.wandroid.data.model.PagerResponse
 import com.almin.wandroid.data.model.Project
 import com.almin.wandroid.data.model.ProjectTabInfo
 import com.almin.wandroid.data.repository.ProjectRepository
+import com.blankj.utilcode.util.LogUtils
 import kotlinx.coroutines.delay
 
 class ProjectViewModel(private val projectRepository: ProjectRepository) : AbstractViewModel<ProjectContract.PageState,ProjectContract.PageEvent, Contract.PageEffect>(null) {
@@ -29,18 +30,19 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : Abstr
         when(event){
             is ProjectContract.PageEvent.LoadCategoryTab -> loadProjectCategory()
             is ProjectContract.PageEvent.LoadProjectListByTab -> {
-                loadProjectList(categoryId, currentPage, !event.refresh)
+                loadProjectList(categoryId, !event.refresh)
             }
         }
     }
 
-    private fun loadProjectList(cid: Int, page: Int, isLoadMore: Boolean) {
+    private fun loadProjectList(cid: Int, isLoadMore: Boolean) {
         if(!isLoadMore){
             currentPage = 0
         }
+        val isLatestType = cid == 0
         api<PagerResponse<Article>> {
             call {
-                val pager = if(cid == 0) projectRepository.getLatestProjectList(page) else projectRepository.getProjectListByCategoryId(cid, page)
+                val pager = if(isLatestType) projectRepository.getLatestProjectList(currentPage) else projectRepository.getProjectListByCategoryId(cid, currentPage)
                 delay(1000) // 展示动画
                 pager
             }
@@ -48,7 +50,7 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : Abstr
                 setState { copy(loadStatus = if(isLoadMore) LoadStatus.LoadMore else LoadStatus.Refresh) }
             }
             success {
-                currentPage = it.curPage
+                currentPage = if(isLatestType) it.curPage else it.curPage + 1
                 setState { copy(projects = it.datas, loadStatus = if(isLoadMore) LoadStatus.LoadMoreFinish else LoadStatus.Finish) }
             }
             failed {
