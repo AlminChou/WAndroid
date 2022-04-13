@@ -29,33 +29,6 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : Abstr
     override fun handleEvent(event: ProjectContract.PageEvent) {
         when(event){
             is ProjectContract.PageEvent.LoadCategoryTab -> loadProjectCategory()
-            is ProjectContract.PageEvent.LoadProjectListByTab -> {
-                loadProjectList(categoryId, !event.refresh)
-            }
-        }
-    }
-
-    private fun loadProjectList(cid: Int, isLoadMore: Boolean) {
-        if(!isLoadMore){
-            currentPage = 0
-        }
-        val isLatestType = cid == 0
-        api<PagerResponse<Article>> {
-            call {
-                val pager = if(isLatestType) projectRepository.getLatestProjectList(currentPage) else projectRepository.getProjectListByCategoryId(cid, currentPage)
-                delay(1000) // 展示动画
-                pager
-            }
-            prepare {
-                setState { copy(loadStatus = if(isLoadMore) LoadStatus.LoadMore else LoadStatus.Refresh) }
-            }
-            success {
-                currentPage = if(isLatestType) it.curPage else it.curPage + 1
-                setState { copy(projects = it.datas, loadStatus = if(isLoadMore) LoadStatus.LoadMoreFinish else LoadStatus.Finish) }
-            }
-            failed {
-                setState { copy(loadStatus = if(isLoadMore) LoadStatus.LoadMoreFailed else LoadStatus.LoadFailed) }
-            }
         }
     }
 

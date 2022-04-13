@@ -77,6 +77,8 @@ dependencies {
 
     api project(path: ':common')
 
+    implementation 'com.google.android.flexbox:flexbox:3.0.0'
+
     implementation "androidx.compose.ui:ui:+"
     implementation "androidx.compose.material:material:+"
     implementation "androidx.compose.ui:ui-tooling:+"

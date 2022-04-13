@@ -35,24 +35,29 @@ class PortalViewModel(private val articleRepository: ArticleRepository,
             }
 
             is PortalContract.PageEvent.LoadTagTree -> {
-                loadTagTree(!event.isLoadMore)
+                loadTagTree()
             }
         }
     }
 
-    private fun loadTagTree(refresh: Boolean) {
-//        api<List<TagTree>> {
-//            call {
-//                when(tagType){
-//                    TYPE_SYSTEM -> {
-//                        portalRepository.loadSystemTree()
-//                    }
-//                    else -> {
-//                        portalRepository.loadNavigationTree()
-//                    }
-//                }
-//            }
-//        }
+    private fun loadTagTree() {
+        api<List<TagTree>> {
+            call {
+                when(tagType){
+                    TYPE_SYSTEM -> {
+                        portalRepository.loadSystemTree()
+                    }
+                    else -> {
+                        portalRepository.loadNavigationTree()
+                    }
+                }
+            }
+            prepare { setState { copy(loadStatus = LoadStatus.Refresh) }}
+            success {
+                setState { copy(loadStatus = LoadStatus.RefreshFinish, tagTree = it) }
+            }
+            failed { setState { copy(loadStatus = LoadStatus.RefreshFailed)  }}
+        }
     }
 
     private fun loadSquareFeed(refresh: Boolean) {

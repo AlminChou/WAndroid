@@ -17,15 +17,6 @@ interface PortalApiService {
     @GET("tree/json")
     suspend fun getSystemTree() : List<SystemNode>
 
-//    /**
-//     * 知识体系下的文章数据
-//     */
-//    @GET("article/list/{page}/json")
-//    suspend fun getSystemChildData(
-//        @Path("page") pageNo: Int,
-//        @Query("cid") cid: Int
-//    ): ApiResponse<ApiPagerResponse<ArrayList<AriticleResponse>>>
-
 
     /**
      * 获取导航数据

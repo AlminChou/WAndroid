@@ -27,26 +27,25 @@
             app:popUpToInclusive="true"
             app:launchSingleTop="true" />
 
-        <argument
-            android:name="plantId"
-            app:argType="string"
-            android:defaultValue="unknow"/>
-
     </app_fragment>
 
     <app_fragment
         android:id="@+id/navigation_main"
         android:name="com.almin.wandroid.ui.module.main.MainFragment"
         android:label="@string/title_main"
-        tools:layout="@layout/fragment_main"
-        >
-        <!--            <action-->
-        <!--                android:id="@+id/action_navigation_main_to_navigation_detail"-->
-        <!--                app:destination="@id/navigation_detail"-->
-        <!--                app:enterAnim="@anim/slide_in_right"-->
-        <!--                app:exitAnim="@anim/slide_out_left"-->
-        <!--                app:popEnterAnim="@anim/slide_in_left"-->
-        <!--                app:popExitAnim="@anim/slide_out_right"/>-->
+        tools:layout="@layout/fragment_main">
+
+        // 用来防止旋转崩溃
+        <action
+            android:id="@+id/action_navigation_splash_to_navigation_main"
+            app:destination="@id/navigation_main"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true" />
+
     </app_fragment>
 
     <app_fragment
@@ -64,6 +63,12 @@
     <app_fragment
         android:id="@+id/navigation_web"
         android:name="com.almin.wandroid.ui.module.web.WebFragment"
+        android:label="@string/web_detail"
+        tools:layout="@layout/fragment_web" />
+
+    <app_fragment
+        android:id="@+id/navigation_result_list"
+        android:name="com.almin.wandroid.ui.module.portal.SystemArticleListFragment"
         android:label="@string/web_detail"
         tools:layout="@layout/fragment_web" />
 

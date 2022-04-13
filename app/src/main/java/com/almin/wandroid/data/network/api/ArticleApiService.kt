@@ -6,6 +6,7 @@ import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.data.model.PagerResponse
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 /**
  * Created by Almin on 2022/1/11.
@@ -28,14 +29,22 @@ interface ArticleApiService {
      * 首页文章数据
      */
     @GET("article/list/{page}/json")
-    suspend fun getArticleList(@Path("page") page: Int): ArticlePageRsp
+    suspend fun getArticleList(@Path("page") page: Int): PagerResponse<Article>
 
 
     /*
      * 广场列表
      */
     @GET("user_article/list/{page}/json")
-    suspend fun getSquareData(@Path("page") page: Int): PagerResponse<Article>
+    suspend fun getSquareList(@Path("page") page: Int): PagerResponse<Article>
 
 
+    /**
+     * 知识体系下的文章数据
+     */
+    @GET("article/list/{page}/json")
+    suspend fun getSystemFeedList(
+        @Path("page") pageNo: Int,
+        @Query("cid") cid: Int
+    ): PagerResponse<Article>
 }

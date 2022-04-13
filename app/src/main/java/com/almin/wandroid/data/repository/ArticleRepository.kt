@@ -47,8 +47,20 @@ class ArticleRepository(private val articleApiService: ArticleApiService, privat
     }
 
 
+    suspend fun getHomeFeedList(pageIndex: Int) : PagerResponse<Article> {
+        val rsp = articleApiService.getArticleList(pageIndex)
+        rsp.datas.map { it.articleType = Article.ARTICLE_TYPE_SQUARE }
+        return rsp
+    }
+
     suspend fun getSquareFeedList(pageIndex: Int) : PagerResponse<Article> {
-        val rsp = articleApiService.getSquareData(pageIndex)
+        val rsp = articleApiService.getSquareList(pageIndex)
+        rsp.datas.map { it.articleType = Article.ARTICLE_TYPE_SQUARE }
+        return rsp
+    }
+
+    suspend fun getSystemFeedList(pageIndex: Int, cid: Int) : PagerResponse<Article> {
+        val rsp = articleApiService.getSystemFeedList(pageIndex, cid)
         rsp.datas.map { it.articleType = Article.ARTICLE_TYPE_SQUARE }
         return rsp
     }

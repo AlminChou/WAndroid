@@ -7,8 +7,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageState
 import com.almin.arch.viewmodel.HolderViewModel
+import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.databinding.FragmentTabPortalBinding
 import com.almin.wandroid.ui.base.AbsTabFragment
+import com.almin.wandroid.ui.module.common.ArticleFeedFragment
 import com.almin.wandroid.ui.module.portal.PortalContract.Companion.TYPE_NAVIGATION
 import com.almin.wandroid.ui.module.portal.PortalContract.Companion.TYPE_SYSTEM
 import com.almin.wandroid.ui.widget.StatusBarUtil
@@ -41,7 +43,7 @@ class PortalTabFragment : AbsTabFragment<FragmentTabPortalBinding, PageState, Co
         val tabLayoutMediator = TabLayoutMediator(binding.tabLayout, binding.vpProtal) { tab, position ->
             tab.text = tabName[position]
         }
-        val fragments = listOf<Fragment>(SquareFragment(), TagFragment.newInstance(TYPE_SYSTEM), TagFragment.newInstance(TYPE_NAVIGATION))
+        val fragments = listOf<Fragment>(ArticleFeedFragment.instance(Article.ARTICLE_TYPE_SQUARE, 0), TagFragment.newInstance(TYPE_SYSTEM), TagFragment.newInstance(TYPE_NAVIGATION))
         binding.vpProtal.adapter = PortalTabAdapter(this, fragments)
         tabLayoutMediator.attach()
     }

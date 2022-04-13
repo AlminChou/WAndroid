@@ -27,11 +27,13 @@
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/alert_dialog.xml" value="0.23641304347826086" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/dialog_fragment_confirm.xml" value="0.10643115942028986" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/dialog_logout.xml" value="0.23641304347826086" />
+        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_article_feed.xml" value="0.22735507246376813" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_login.xml" value="0.278125" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_main.xml" value="0.1" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_result_list.xml" value="0.14945652173913043" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_signin.xml" value="0.2140625" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_splash.xml" value="0.22" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_tab_home.xml" value="0.10190217391304347" />
@@ -44,6 +46,8 @@
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/include_page_load_error.xml" value="0.24479166666666666" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/include_toolbar.xml" value="0.278125" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_news.xml" value="0.5" />
+        <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_portal_tag.xml" value="0.2578125" />
+        <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_portal_tag_node.xml" value="0.1875" />
         <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_project.xml" value="0.25" />
         <entry key="..\:/project/WAndroid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
         <entry key="..\:/project/WAndroid/app/src/main/res/menu/home_menu.xml" value="0.20572916666666666" />

@@ -97,7 +97,7 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
             onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback!!)
         }
 
-        bind(Lifecycle.State.RESUMED) {
+        bind(Lifecycle.State.STARTED) {
             viewModel.uiState.collect { state: S? ->
                 state?.run {
                     handleState(this)

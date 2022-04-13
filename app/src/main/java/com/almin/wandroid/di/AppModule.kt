@@ -12,6 +12,7 @@ import com.almin.wandroid.data.repository.ProjectRepository
 import com.almin.wandroid.middleware.ApiExceptionHandler
 import com.almin.wandroid.middleware.ResourceProviderImpl
 import com.almin.wandroid.ui.AppViewModel
+import com.almin.wandroid.ui.module.common.ArticleFeedViewModel
 import com.almin.wandroid.ui.module.home.HomeViewModel
 import com.almin.wandroid.ui.module.login.LoginViewModel
 import com.almin.wandroid.ui.module.mine.MineTabViewModel
@@ -56,5 +57,5 @@ val appModule = module {
     viewModel { ProjectViewModel(get()) }
     viewModel { MineTabViewModel(get()) }
     viewModel { PortalViewModel(get(), get()) }
-
+    viewModel { ArticleFeedViewModel(get(), get()) }
 }

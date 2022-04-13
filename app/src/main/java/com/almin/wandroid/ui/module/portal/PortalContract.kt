@@ -3,6 +3,7 @@ package com.almin.wandroid.ui.module.portal
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.LoadStatus
 import com.almin.wandroid.data.model.Article
+import com.almin.wandroid.data.model.TagTree
 
 /**
  * Created by Almin on 2022/3/18.
@@ -19,5 +20,5 @@ interface PortalContract {
         data class LoadTagTree(val isLoadMore: Boolean) : PageEvent()
     }
 
-    data class PageState(val articles: List<Article>? = null, val loadStatus: LoadStatus = LoadStatus.Default) : Contract.PageState()
+    data class PageState(val articles: List<Article>? = null, val tagTree: List<TagTree>? = null, val loadStatus: LoadStatus = LoadStatus.Default) : Contract.PageState()
 }

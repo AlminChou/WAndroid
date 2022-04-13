@@ -37,7 +37,7 @@ abstract class AbstractActivity<VB : ViewBinding, S: PageState, Effect: PageEffe
         viewModel.attach(intent?.extras)
         initView()
 
-        bind(Lifecycle.State.RESUMED) {
+        bind(Lifecycle.State.STARTED) {
             viewModel.uiState.collect(this@AbstractActivity::handleState)
         }
         bind(Lifecycle.State.STARTED){
