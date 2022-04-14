@@ -49,7 +49,7 @@ class MainActivity : AbstractActivity<ActivityMainBinding, AppContract.State, Ap
             run {
                 println("MainActivity     addOnDestinationChangedListener    ${destination.id}    ")
             }
-            println("MainActivity           navController.backStack.size ${navController.backStack.size}")
+            println("MainActivity           navController.backStack.size ${navController.backQueue.size}")
         }
     }
 

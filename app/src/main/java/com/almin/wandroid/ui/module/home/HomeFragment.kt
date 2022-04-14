@@ -34,6 +34,7 @@ import androidx.paging.compose.items
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageState
 import com.almin.wandroid.R
+import com.almin.wandroid.const.Key
 import com.almin.wandroid.data.model.Article
 import com.almin.wandroid.data.model.Banner
 import com.almin.wandroid.databinding.FragmentTabHomeBinding
@@ -137,7 +138,9 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         return if (id == R.id.action_search) {
-
+            appNavigator().display(
+                R.id.navigation_search,
+                AppNavigator.NavigationType.Add, null)
             true
         } else super.onOptionsItemSelected(item)
     }

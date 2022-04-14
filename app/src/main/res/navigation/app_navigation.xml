@@ -67,9 +67,15 @@
         tools:layout="@layout/fragment_web" />
 
     <app_fragment
-        android:id="@+id/navigation_result_list"
+        android:id="@+id/navigation_system_article_feed"
         android:name="com.almin.wandroid.ui.module.portal.SystemArticleListFragment"
-        android:label="@string/web_detail"
-        tools:layout="@layout/fragment_web" />
+        android:label="@string/system_article_feed"
+        tools:layout="@layout/fragment_article_feed" />
+
+    <app_fragment
+        android:id="@+id/navigation_search"
+        android:name="com.almin.wandroid.ui.module.search.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

@@ -59,40 +59,15 @@ class TagFragment : AbsLazyPageFragment<FragmentCommonRefreshListBinding, Portal
         binding.refreshLayout.setOnRefreshListener {
             viewModel.setEvent(PortalContract.PageEvent.LoadTagTree(true))
         }
-//        adapter.singleItemClick{ childAdapter, view, position ->
-//            if(childAdapter.data[position] is TagNode){
-//                val node = (childAdapter.data[position] as TagNode)
-//                when(node.type){
-//                    TAG_TYPE_CATEGORY -> {
-////                            appNavigator().display(
-////                                R.id.navigation_result_list,
-////                                AppNavigator.NavigationType.Add,
-////                                bundleOf().apply {
-////                                    putParcelable(Key.BUNDLE_KEY_CATEGORY_TAG_NODE, this)
-////                                })
-//                    }
-//                    TAG_TYPE_ARTICLE -> {
-//                        node.article?.run {
-//                            appNavigator().display(
-//                                R.id.navigation_web,
-//                                AppNavigator.NavigationType.Add, bundleOf("url" to link, "title" to title)
-//                            )
-//                        }
-//                    }
-//                }
-//            }
-//        }
-
         adapter.setOnTagClickListener{ tagTree, tagNode, position ->
             when(tagNode.type){
                     TAG_TYPE_CATEGORY -> {
                             appNavigator().display(
-                                R.id.navigation_result_list,
+                                R.id.navigation_system_article_feed,
                                 AppNavigator.NavigationType.Add,
                                 bundleOf(Key.BUNDLE_KEY_POSITION to position).apply {
                                     putParcelable(Key.BUNDLE_KEY_CATEGORY_TAG_NODE, tagTree)
                                 })
-//                        println("12312321321321312   1 1   ${tagTree.groupName}")
                     }
                     TAG_TYPE_ARTICLE -> {
                         tagNode.article?.run {

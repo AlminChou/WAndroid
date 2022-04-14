@@ -3,12 +3,9 @@ package com.almin.wandroid.di
 import com.almin.arch.middleware.ExceptionHandler
 import com.almin.arch.middleware.MiddleWareProvider
 import com.almin.arch.viewmodel.HolderViewModel
-import com.almin.wandroid.data.repository.ArticleRepository
-import com.almin.wandroid.data.repository.UserRepository
 import com.almin.arch.middleware.ResourceProvider
 import com.almin.wandroid.data.db.AppDataBase
-import com.almin.wandroid.data.repository.PortalRepository
-import com.almin.wandroid.data.repository.ProjectRepository
+import com.almin.wandroid.data.repository.*
 import com.almin.wandroid.middleware.ApiExceptionHandler
 import com.almin.wandroid.middleware.ResourceProviderImpl
 import com.almin.wandroid.ui.AppViewModel
@@ -19,6 +16,7 @@ import com.almin.wandroid.ui.module.mine.MineTabViewModel
 import com.almin.wandroid.ui.module.portal.PortalViewModel
 import com.almin.wandroid.ui.module.project.ProjectViewModel
 import com.almin.wandroid.ui.module.register.RegisterViewModel
+import com.almin.wandroid.ui.module.search.SearchViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -47,7 +45,7 @@ val appModule = module {
     single { UserRepository(get(), get()) }
     single { ProjectRepository(get()) }
     single { PortalRepository(get(), get()) }
-
+    single { SearchRepository(get(), get()) }
 
     viewModel { AppViewModel(get(), get()) }
     viewModel { HolderViewModel() }
@@ -58,4 +56,7 @@ val appModule = module {
     viewModel { MineTabViewModel(get()) }
     viewModel { PortalViewModel(get(), get()) }
     viewModel { ArticleFeedViewModel(get(), get()) }
+    viewModel { SearchViewModel(get(), get()) }
+
+
 }

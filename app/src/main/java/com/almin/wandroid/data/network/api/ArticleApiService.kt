@@ -1,10 +1,8 @@
 package com.almin.wandroid.data.network.api
 
-import com.almin.wandroid.data.model.Article
-import com.almin.wandroid.data.model.ArticlePageRsp
-import com.almin.wandroid.data.model.Banner
-import com.almin.wandroid.data.model.PagerResponse
+import com.almin.wandroid.data.model.*
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -47,4 +45,22 @@ interface ArticleApiService {
         @Path("page") pageNo: Int,
         @Query("cid") cid: Int
     ): PagerResponse<Article>
+
+
+    /**
+     * 根据关键词搜索数据
+     */
+    @POST("article/query/{page}/json")
+    suspend fun getSearchDataByKey(
+        @Path("page") pageNo: Int,
+        @Query("k") searchKey: String
+    ): PagerResponse<Article>
+
+
+    /**
+     * 获取热门搜索数据
+     */
+    @GET("hotkey/json")
+    suspend fun getSearchHotKey(): List<HotKey>
+
 }
