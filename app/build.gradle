@@ -92,6 +92,8 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager-indicators:0.20.2"
     implementation "com.google.accompanist:accompanist-placeholder:+"
     implementation "com.google.accompanist:accompanist-swiperefresh:+"
+    implementation "com.google.accompanist:accompanist-flowlayout:+"
+
     //paging分页库
     implementation 'androidx.paging:paging-compose:+'
     implementation "androidx.paging:paging-runtime:+"
