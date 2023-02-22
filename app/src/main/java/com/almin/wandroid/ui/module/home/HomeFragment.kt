@@ -31,6 +31,11 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.AsyncImage
+import coil.compose.LocalImageLoader
+import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.almin.arch.viewmodel.Contract
 import com.almin.arch.viewmodel.Contract.PageState
 import com.almin.wandroid.R
@@ -45,7 +50,6 @@ import com.almin.wandroid.ui.compose.RefreshLazyColumn
 import com.almin.wandroid.ui.navigator.AppNavigator
 import com.almin.wandroid.ui.navigator.appNavigator
 import com.almin.wandroid.ui.widget.StatusBarUtil.setAppbarTopPadding
-import com.google.accompanist.coil.rememberCoilPainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.HorizontalPagerIndicator
@@ -60,7 +64,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 // paging3 loadmore : https://medium.com/simform-engineering/list-view-with-pagination-using-jetpack-compose-e131174eac8e
 
 // 推荐 + 每日一问
-class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.PageEffect, HomeViewModel>(FragmentTabHomeBinding::inflate) {
+class HomeFragment :
+    AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.PageEffect, HomeViewModel>(
+        FragmentTabHomeBinding::inflate
+    ) {
     //    sharedViewModel
     override val viewModel: HomeViewModel by viewModel()
 
@@ -94,34 +101,43 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                     viewModel.setEvent(HomeContract.PageEvent.Refresh)
                     pager.refresh()
                 }) { coroutineScope, listState ->
-                    item(key = "top_banner"){
-                        Banner(banners){
-                            appNavigator().display(R.id.navigation_web,
-                                AppNavigator.NavigationType.Add, bundleOf("url" to it.url, "title" to it.title))
+                    item(key = "top_banner") {
+                        Banner(banners) {
+                            appNavigator().display(
+                                R.id.navigation_web,
+                                AppNavigator.NavigationType.Add,
+                                bundleOf("url" to it.url, "title" to it.title)
+                            )
                         }
 //                        coroutineScope.launch {
 //                            listState.animateScrollToItem(0)
 //                        }
                     }
-                    if(!topArticles.isNullOrEmpty()){
+                    if (!topArticles.isNullOrEmpty()) {
                         itemsIndexed(topArticles, key = { _, item ->
                             item.id
-                        }){ _, item ->
-                            ArticleItemCard(item = item){
+                        }) { _, item ->
+                            ArticleItemCard(item = item) {
                                 //click
-                                appNavigator().display(R.id.navigation_web,
-                                    AppNavigator.NavigationType.Add, bundleOf("url" to item.link, "title" to item.title))
+                                appNavigator().display(
+                                    R.id.navigation_web,
+                                    AppNavigator.NavigationType.Add,
+                                    bundleOf("url" to item.link, "title" to item.title)
+                                )
                             }
                         }
                     }
                     items(pager, key = {
                         it.id
-                    }){
+                    }) {
                         it?.run {
-                            ArticleItemCard(item = this){
+                            ArticleItemCard(item = this) {
                                 //click
-                                appNavigator().display(R.id.navigation_web,
-                                    AppNavigator.NavigationType.Add, bundleOf("url" to it.link, "title" to it.title))
+                                appNavigator().display(
+                                    R.id.navigation_web,
+                                    AppNavigator.NavigationType.Add,
+                                    bundleOf("url" to it.link, "title" to it.title)
+                                )
                             }
                         }
                     }
@@ -147,16 +163,17 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
         return if (id == R.id.action_search) {
             appNavigator().display(
                 R.id.navigation_search,
-                AppNavigator.NavigationType.Add, null)
+                AppNavigator.NavigationType.Add, null
+            )
             true
         } else super.onOptionsItemSelected(item)
     }
 
-    @OptIn(ExperimentalPagerApi::class)
+    @OptIn(ExperimentalPagerApi::class, ExperimentalCoilApi::class)
     @Composable
-    fun Banner(banners: List<Banner>?, click: (Banner) -> Unit){
+    fun Banner(banners: List<Banner>?, click: (Banner) -> Unit) {
         Box {
-            if(banners.isNullOrEmpty()){
+            if (banners.isNullOrEmpty()) {
 //                Image(
 //                    modifier = Modifier
 //                        .fillMaxWidth()
@@ -167,11 +184,13 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
 //                    contentDescription = "",
 //                    contentScale = ContentScale.Crop
 //                )
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(8.dp)){
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(8.dp)
+                ) {
                 }
-            }else{
+            } else {
                 val bannerState = rememberPagerState()
                 //自动滚动
                 LaunchedEffect(bannerState.currentPage) {
@@ -185,8 +204,11 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                         .fillMaxWidth()
                         .height(200.dp),
                     count = banners.size,
-                    state = bannerState) { page ->
-                    Image(
+                    state = bannerState
+                ) { page ->
+                    AsyncImage(
+                        model = banners[page].imagePath,
+                        contentDescription = null,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
@@ -195,8 +217,6 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                                 ClickHelper.debounceClicks { click(banners[page]) }
                             }
                             .clip(RoundedCornerShape(8.dp)),
-                        painter = rememberCoilPainter(request = banners[page].imagePath),
-                        contentDescription = "",
                         contentScale = ContentScale.Crop
                     )
                 }
@@ -211,38 +231,43 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
     }
 
     @Composable
-    fun ArticleItemCard(item: Article, onClick: ()-> Unit){
+    fun ArticleItemCard(item: Article, onClick: () -> Unit) {
         Column {
             Spacer(modifier = Modifier.height(10.dp))
             Card(modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp, 0.dp, 8.dp, 0.dp)
                 .wrapContentHeight()
-                .clickable { ClickHelper.debounceClicks { onClick() } }, elevation = 5.dp) {
+                .clickable { ClickHelper.debounceClicks { onClick() } }, elevation = 5.dp
+            ) {
                 ConstraintLayout {
                     val (author, title, releaseTime, tags, chapter, collect) = createRefs()
                     Text(text = item.author.ifEmpty { item.shareUser },
-                        Modifier.constrainAs(author){
+                        Modifier.constrainAs(author) {
                             top.linkTo(parent.top, 8.dp)
                             start.linkTo(parent.start, 8.dp)
-                        }, fontSize = 14.sp)
+                        }, fontSize = 14.sp
+                    )
 
                     Text(text = item.title,
-                        Modifier.constrainAs(title){
+                        Modifier.constrainAs(title) {
                             top.linkTo(author.bottom, 15.dp)
                             start.linkTo(author.start)
                             end.linkTo(releaseTime.end)
                             width = Dimension.fillToConstraints
-                        }, fontWeight = FontWeight.Bold)
+                        }, fontWeight = FontWeight.Bold
+                    )
 
-                    Text(text = item.niceDate,
-                        Modifier.constrainAs(releaseTime){
+                    Text(
+                        text = item.niceDate,
+                        Modifier.constrainAs(releaseTime) {
                             top.linkTo(author.top)
                             end.linkTo(parent.end, 8.dp)
                             bottom.linkTo(author.bottom)
                         },
                         color = Color(0xFF888888),
-                        fontSize = 12.sp)
+                        fontSize = 12.sp
+                    )
 
                     Text(
                         text = "${item.superChapterName}·${item.chapterName}",
@@ -258,42 +283,44 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
 //                    var isCollect by remember { mutableStateOf(item.collect) }
                     var change by remember { mutableStateOf(false) }
                     val buttonSize by animateDpAsState(
-                        targetValue = if(change) 32.dp else 24.dp
+                        targetValue = if (change) 32.dp else 24.dp
                     )
-                    if(buttonSize == 32.dp) {
+                    if (buttonSize == 32.dp) {
                         change = false
                     }
                     IconButton(onClick = {
                         ClickHelper.debounceClicks {
-                            if(appViewModel.isLogined()){
+                            if (appViewModel.isLogined()) {
 //                        isCollect = !isCollect
                                 item.collect = !item.collect
                                 change = true
-                            }else{
+                            } else {
                                 appViewModel.setEvent(AppContract.Event.Login)
-                            } }
-                    }, modifier = Modifier.constrainAs(collect){
+                            }
+                        }
+                    }, modifier = Modifier.constrainAs(collect) {
                         bottom.linkTo(parent.bottom)
                         end.linkTo(parent.end)
-                    }){
+                    }) {
                         Icon(
                             Icons.Rounded.Favorite,
                             contentDescription = null,
                             modifier = Modifier.size(buttonSize),
-                            tint = if(item.collect) Color.Red else Color.Gray
-                        )}
+                            tint = if (item.collect) Color.Red else Color.Gray
+                        )
+                    }
 
-                    LazyRow(modifier = Modifier.constrainAs(tags){
+                    LazyRow(modifier = Modifier.constrainAs(tags) {
                         start.linkTo(author.end, 6.dp)
                         top.linkTo(author.top)
                         bottom.linkTo(author.bottom)
                     }) {
-                        if(item.isTop){
+                        if (item.isTop) {
                             item {
                                 TagView("置顶", Color(0xFFFF0000))
                             }
                         }
-                        if(item.isNew){
+                        if (item.isNew) {
                             item {
                                 TagView("新", Color(0xFFFF0000))
                             }
@@ -316,10 +343,12 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
                 .padding(2.dp, 0.dp, 2.dp, 0.dp)
                 .border(1.dp, Color.Red)
                 .padding(2.dp, 1.dp, 2.dp, 1.dp)
-        ){
-            Text(text = name,
+        ) {
+            Text(
+                text = name,
                 color = color,
-                fontSize = 11.sp)
+                fontSize = 11.sp
+            )
         }
     }
 
