@@ -46,6 +46,7 @@ class AppViewModel(middleWareProvider: MiddleWareProvider, private val userRepos
             is AppContract.Event.Logout -> {
                 logout()
             }
+            else -> { }
         }
     }
 

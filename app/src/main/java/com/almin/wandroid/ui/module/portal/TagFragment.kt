@@ -99,6 +99,7 @@ class TagFragment : AbsLazyPageFragment<FragmentCommonRefreshListBinding, Portal
                 binding.refreshLayout.isRefreshing = false
                 adapter.setNewInstance(state.tagTree?.toMutableList())
             }
+            else -> { }
         }
     }
 

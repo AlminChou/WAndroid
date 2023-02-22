@@ -9,7 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.viewbinding.ViewBinding
 import com.almin.arch.bus.FlowBus
 import com.almin.arch.ui.lifecycleobserver.ActivityCreatedObserver

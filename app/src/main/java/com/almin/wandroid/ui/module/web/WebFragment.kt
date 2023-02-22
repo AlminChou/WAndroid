@@ -66,7 +66,7 @@ class WebFragment : AbstractFragment<FragmentWebBinding, Contract.PageState, Con
         binding.webview.settings.cacheMode = if(NetworkUtil.isNetworkAvailable()) WebSettings.LOAD_DEFAULT else WebSettings.LOAD_CACHE_ELSE_NETWORK
         binding.webview.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
         binding.webview.settings.domStorageEnabled = true // 开启 DOM storage API 功能
-        binding.webview.settings.setAppCacheEnabled(true)//开启 Application Caches 功能
+//        binding.webview.settings.setAppCacheEnabled(true)//开启 Application Caches 功能
         //加载https和http混合
         binding.webview.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         binding.webview.webChromeClient = object : WebChromeClient() {

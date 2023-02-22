@@ -10,11 +10,13 @@ import com.almin.wandroid.data.model.HotKey
  */
 interface SearchContract {
     data class PageState(var hotKeys: List<HotKey>? = null,
+                         val history: List<String>? = null,
                          var topArticles: List<Article>? = null, val loadStatus: LoadStatus = LoadStatus.Default) : Contract.PageState()
 
 
     sealed class PageEvent: Contract.PageEvent{
         object Refresh: PageEvent()
+        object CleanHistory: PageEvent()
     }
 
 }

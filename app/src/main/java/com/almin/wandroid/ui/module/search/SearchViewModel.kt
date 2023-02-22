@@ -4,12 +4,14 @@ import android.os.Bundle
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.almin.arch.ktx.launch
 import com.almin.arch.middleware.MiddleWareProvider
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.viewmodel.Contract
 import com.almin.wandroid.data.model.HotKey
 import com.almin.wandroid.data.repository.ArticleRepository
 import com.almin.wandroid.data.repository.SearchRepository
+import kotlinx.coroutines.Dispatchers
 
 /**
  * Created by Almin on 2022/4/13.
@@ -28,14 +30,39 @@ class SearchViewModel(middleWareProvider: MiddleWareProvider, private val search
     override fun handleEvent(event: SearchContract.PageEvent) {
         when(event){
             is SearchContract.PageEvent.Refresh -> {
-                api<List<HotKey>> {
-                    call { searchRepository.getHotKeyList() }
-                    success {
+                loadhotKeyList()
+                loadSearchHistory()
+            }
+
+            is SearchContract.PageEvent.CleanHistory -> {
+                cleanHistory()
+            }
+        }
+    }
+
+    private fun cleanHistory(){
+        pageState = pageState.copy(history = emptyList())
+        launch(Dispatchers.IO) {
+            searchRepository.cleanHistory()
+        }
+    }
+
+    private fun loadhotKeyList() {
+        api<List<HotKey>> {
+            call { searchRepository.getHotKeyList() }
+            success {
 //                        setState { copy(hotKeys = it) }
-                        pageState = pageState.copy(hotKeys = it)
-                    }
-                    failed {  }
-                }
+                pageState = pageState.copy(hotKeys = it)
+            }
+            failed {  }
+        }
+    }
+
+    private fun loadSearchHistory(){
+        cacheApi<List<String>> {
+            call { searchRepository.getHistory() }
+            success {
+                pageState = pageState.copy(history = it)
             }
         }
     }

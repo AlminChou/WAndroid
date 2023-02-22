@@ -3,59 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable-v24/ic_collect_default_grey.xml" value="0.1955" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/bg_check_in_btn.xml" value="0.1" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/bottom_navigation_selector.xml" value="0.194" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/btn_bg_red_radius_18.xml" value="0.1405" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/btn_cancel_cancel.xml" value="0.1405" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_about.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_arrow_right.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_check_in.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_collect_default.xml" value="0.1715" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1715" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.194" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_integral.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_link.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_logout.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_menu_normal.xml" value="0.223" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_message.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.223" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_search.xml" value="0.194" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/ic_setting.xml" value="0.1975" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/drawable/regist_input_bg.xml" value="0.197" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/alert_dialog.xml" value="0.23641304347826086" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/dialog_fragment_confirm.xml" value="0.10643115942028986" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/dialog_logout.xml" value="0.23641304347826086" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_article_feed.xml" value="0.22735507246376813" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_home.xml" value="0.22" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_login.xml" value="0.278125" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_main.xml" value="0.1" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_result_list.xml" value="0.14945652173913043" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_search.xml" value="0.24774266365688488" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_signin.xml" value="0.2140625" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_splash.xml" value="0.22" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_tab_home.xml" value="0.10190217391304347" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_tab_mine.xml" value="0.21875" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_tab_portal.xml" value="0.1828125" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_tab_project.xml" value="0.2046875" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_tab_project_child.xml" value="0.18691588785046728" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_web.xml" value="0.17553191489361702" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/fragment_webv.xml" value="0.2828125" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/include_page_load_error.xml" value="0.24479166666666666" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/include_toolbar.xml" value="0.278125" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_news.xml" value="0.5" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_portal_tag.xml" value="0.2578125" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_portal_tag_node.xml" value="0.1875" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/layout/list_item_project.xml" value="0.25" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/menu/home_menu.xml" value="0.20572916666666666" />
-        <entry key="..\:/project/WAndroid/app/src/main/res/menu/web_menu.xml" value="0.3609375" />
+        <entry key="app/src/main/res/layout/fragment_article_feed.xml" value="0.1716485507246377" />
+        <entry key="app/src/main/res/layout/fragment_search.xml" value="0.10460992907801418" />
+        <entry key="app/src/main/res/layout/include_toolbar.xml" value="0.1716485507246377" />
+        <entry key="app/src/main/res/menu/home_menu.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/menu/search_menu.xml" value="0.17708333333333334" />
+        <entry key="app/src/main/res/menu/web_menu.xml" value="0.17708333333333334" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

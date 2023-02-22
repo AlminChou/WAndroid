@@ -29,6 +29,7 @@ class ProjectViewModel(private val projectRepository: ProjectRepository) : Abstr
     override fun handleEvent(event: ProjectContract.PageEvent) {
         when(event){
             is ProjectContract.PageEvent.LoadCategoryTab -> loadProjectCategory()
+            else -> { }
         }
     }
 

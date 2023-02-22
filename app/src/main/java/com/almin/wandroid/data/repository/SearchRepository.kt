@@ -11,5 +11,14 @@ class SearchRepository(private val articleApiService: ArticleApiService, private
 
     suspend fun getHotKeyList() = articleApiService.getSearchHotKey()
 
+    suspend fun getHistory() = listOf<String>("123123", "2233", "412344")
+
+    suspend fun cleanHistory() {
+
+    }
+
+    suspend fun addHistory(historyKey: String) {
+
+    }
 }
 

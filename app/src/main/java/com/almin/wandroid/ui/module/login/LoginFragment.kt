@@ -67,6 +67,7 @@ class LoginFragment : AbsFragment<FragmentLoginBinding, LoginContract.State, Con
                 binding.pbLoading.isVisible = false
                 activity?.onBackPressed()
             }
+            else -> { }
         }
     }
 

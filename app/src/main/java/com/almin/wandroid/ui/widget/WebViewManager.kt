@@ -27,7 +27,7 @@ class WebViewManager private constructor() {
         webView.settings.cacheMode = if(NetworkUtil.isNetworkAvailable()) WebSettings.LOAD_DEFAULT else WebSettings.LOAD_CACHE_ELSE_NETWORK
         webView.settings.layoutAlgorithm = WebSettings.LayoutAlgorithm.NARROW_COLUMNS
         webView.settings.domStorageEnabled = true // 开启 DOM storage API 功能
-        webView.settings.setAppCacheEnabled(true)//开启 Application Caches 功能
+//        webView.settings.setAppCacheEnabled(true)//开启 Application Caches 功能
         //加载https和http混合
         webView.settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
         webView.webChromeClient = object : WebChromeClient() {

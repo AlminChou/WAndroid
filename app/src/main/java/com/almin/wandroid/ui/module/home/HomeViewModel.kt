@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingConfig
 import androidx.paging.cachedIn
+import com.almin.arch.ktx.launch
 import com.almin.arch.middleware.MiddleWareProvider
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.viewmodel.Contract
@@ -70,7 +71,7 @@ class HomeViewModel(middleWareProvider: MiddleWareProvider, private val articleR
             emit(articleRepository.getTopArticles())
         }.apiCatch { emit(emptyList()) }
 
-        viewModelScope.launch {
+        launch {
             bannerFlow.zip(articlesFlow){ bannerList, articleList ->
                 delay(1000)
                 _isRefreshing.emit(false)

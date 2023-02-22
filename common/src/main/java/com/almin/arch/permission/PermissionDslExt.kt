@@ -11,9 +11,9 @@ fun ComponentActivity.permission(permission: String, dsl: SinglePermissionCallba
     requestPermission(permission, callbackDsl.granted, callbackDsl.denied, callbackDsl.explained)
 }
 
-fun ComponentActivity.permissions(vararg permissions: String, dsl: MultiPermissionCallbackDsl.()->Unit){
+fun ComponentActivity.permissions(permissions: Array<String>, dsl: MultiPermissionCallbackDsl.()->Unit){
     val callbackDsl = MultiPermissionCallbackDsl().apply(dsl)
-    requestMultiplePermissions(*permissions, allGranted = callbackDsl.allGranted, denied = callbackDsl.denied, explained = callbackDsl.explained)
+    requestMultiplePermissions(permissions, allGranted = callbackDsl.allGranted, denied = callbackDsl.denied, explained = callbackDsl.explained)
 }
 
 fun Fragment.permission(permission: String, dsl: SinglePermissionCallbackDsl.()->Unit){
@@ -21,7 +21,7 @@ fun Fragment.permission(permission: String, dsl: SinglePermissionCallbackDsl.()-
     requestPermission(permission, callbackDsl.granted, callbackDsl.denied, callbackDsl.explained)
 }
 
-fun Fragment.permissions(vararg permissions: String, dsl: MultiPermissionCallbackDsl.()->Unit){
+fun Fragment.permissions(permissions: Array<String>, dsl: MultiPermissionCallbackDsl.()->Unit){
     val callbackDsl = MultiPermissionCallbackDsl().apply(dsl)
-    requestMultiplePermissions(*permissions, allGranted = callbackDsl.allGranted, denied = callbackDsl.denied, explained = callbackDsl.explained)
+    requestMultiplePermissions(permissions, allGranted = callbackDsl.allGranted, denied = callbackDsl.denied, explained = callbackDsl.explained)
 }

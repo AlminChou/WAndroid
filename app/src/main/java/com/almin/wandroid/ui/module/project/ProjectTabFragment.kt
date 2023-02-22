@@ -68,6 +68,7 @@ class ProjectTabFragment : AbsTabFragment<FragmentTabProjectBinding, ProjectCont
                 binding.viewPageState.ivError.isVisible = false
                 binding.viewPageState.tvRetry.isVisible = false
             }
+            else -> { }
         }
     }
 

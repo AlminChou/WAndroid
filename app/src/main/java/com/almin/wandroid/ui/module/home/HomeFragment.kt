@@ -73,9 +73,15 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
 
     override fun initView(rootView: View) {
         setAppbarTopPadding(binding.appbarLayout.root)
-        (activity as AppCompatActivity).setSupportActionBar(binding.appbarLayout.toolbar)
+        binding.appbarLayout.toolbar.inflateMenu(R.menu.home_menu)
+//        (activity as AppCompatActivity).setSupportActionBar(binding.appbarLayout.toolbar)
 //        binding.appbarLayout.toolbar.setLogo(R.drawable.ic_collect_active)
         binding.appbarLayout.toolbar.title = "首页"
+
+        binding.appbarLayout.toolbar.setOnMenuItemClickListener {
+            onOptionsItemSelected(it)
+            false
+        }
 
         binding.cvHome.setContent {
             MaterialTheme {
@@ -130,10 +136,11 @@ class HomeFragment : AbsTabFragment<FragmentTabHomeBinding, PageState, Contract.
     override fun handleState(state: PageState) {
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    // 这种方式会在多次切换页面后 不显示menu 换成toolbar实现
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.home_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId

@@ -107,6 +107,7 @@ class ArticleFeedFragment : AbsLazyPageFragment<FragmentArticleFeedBinding, Arti
                 binding.refreshLayout.isRefreshing = false
                 adapter.setNewInstance(state.articles?.toMutableList())
             }
+            else -> { }
         }
     }
 

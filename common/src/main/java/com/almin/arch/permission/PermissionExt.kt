@@ -39,12 +39,12 @@ inline fun ComponentActivity.requestPermission(
  * [explained] 被拒绝且勾选不再询问，同时被拒绝且勾选不再询问的权限列表
  */
 inline fun ComponentActivity.requestMultiplePermissions(
-    vararg permissions: String,
+    permissions: Array<String>,
     crossinline allGranted: () -> Unit = {},
     crossinline denied: (List<String>) -> Unit = {},
     crossinline explained: (List<String>) -> Unit = {}
 ) {
-    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result: MutableMap<String, Boolean> ->
+    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         //过滤 value 为 false 的元素并转换为 list
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
             allGranted.invoke()
@@ -98,12 +98,12 @@ inline fun Fragment.requestPermission(
  * [explained] 被拒绝且勾选不再询问，同时被拒绝且勾选不再询问的权限列表
  */
 inline fun Fragment.requestMultiplePermissions(
-    vararg permissions: String,
+    permissions: Array<String>,
     crossinline allGranted: () -> Unit = {},
     crossinline denied: (List<String>) -> Unit = {},
     crossinline explained: (List<String>) -> Unit = {}
 ) {
-    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result: MutableMap<String, Boolean> ->
+    registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         //过滤 value 为 false 的元素并转换为 list
         if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
             allGranted.invoke()
