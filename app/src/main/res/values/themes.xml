@@ -19,4 +19,8 @@
         <item name="android:windowBackground">@color/splash_color_bg</item> <!--导航栏为透明-->
 
     </style>
+
+    <style name="Theme.Standard" parent="Theme.WAndroid">
+        <item name="isLightTheme">true</item>
+    </style>
 </resources>

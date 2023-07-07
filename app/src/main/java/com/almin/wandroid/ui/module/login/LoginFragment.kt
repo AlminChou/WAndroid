@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.Navigation
 import com.almin.arch.ui.AbstractFragment
 import com.almin.arch.viewmodel.Contract

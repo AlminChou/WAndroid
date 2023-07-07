@@ -35,7 +35,7 @@
         android:label="@string/title_main"
         tools:layout="@layout/fragment_main">
 
-        // 用来防止旋转崩溃
+<!--        // 用来防止旋转崩溃-->
         <action
             android:id="@+id/action_navigation_splash_to_navigation_main"
             app:destination="@id/navigation_main"

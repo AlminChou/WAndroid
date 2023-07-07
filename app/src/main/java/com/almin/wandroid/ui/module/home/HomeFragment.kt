@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,7 +31,6 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.AsyncImage
 import coil.compose.LocalImageLoader
@@ -127,20 +127,21 @@ class HomeFragment :
                             }
                         }
                     }
-                    items(pager, key = {
-                        it.id
-                    }) {
-                        it?.run {
-                            ArticleItemCard(item = this) {
+
+                    items(count = pager.itemCount) { index ->
+                        val item = pager[index]
+                        item?.run {
+                            ArticleItemCard(item = item) {
                                 //click
                                 appNavigator().display(
                                     R.id.navigation_web,
                                     AppNavigator.NavigationType.Add,
-                                    bundleOf("url" to it.link, "title" to it.title)
+                                    bundleOf("url" to this.link, "title" to this.title)
                                 )
                             }
                         }
                     }
+
                     item(key = "bottom_spacer") {
                         Spacer(modifier = Modifier.height(10.dp))
                     }

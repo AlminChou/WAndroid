@@ -56,6 +56,10 @@ class WebFragment : AbstractFragment<FragmentWebBinding, Contract.PageState, Con
             true
         }
 
+        // https://blog.csdn.net/wlz287/article/details/48679451
+        binding.webview.setBackgroundColor(0)
+
+
         binding.webview.settings.javaScriptEnabled = true
         //设置自适应屏幕，两者合用
         binding.webview.settings.useWideViewPort = true//将图片调整到适合webView的大小

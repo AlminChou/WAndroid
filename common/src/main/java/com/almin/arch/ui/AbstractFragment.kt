@@ -8,25 +8,24 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import androidx.viewbinding.ViewBinding
-import com.almin.arch.bus.FlowBus
+import com.almin.arch.ktx.collect
 import com.almin.arch.ui.lifecycleobserver.ActivityCreatedObserver
 import com.almin.arch.viewmodel.AbstractViewModel
 import com.almin.arch.viewmodel.Contract.PageEffect
 import com.almin.arch.viewmodel.Contract.PageState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 
 /**
  * Created by Almin on 2019-07-17.
  */
-abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffect, VM : AbstractViewModel<S, *, Effect>>(
-    private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB) : Fragment(), ActivityCreatedObserver{
+abstract class AbstractFragment<VB : ViewBinding, S : PageState, Effect : PageEffect, VM : AbstractViewModel<S, *, Effect>>(
+    private val inflate: (LayoutInflater, ViewGroup?, Boolean) -> VB
+) : Fragment(), ActivityCreatedObserver {
 
-    companion object{
+    companion object {
         val TAG: String = this::class.java.simpleName
     }
 
@@ -51,7 +50,7 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
 
     // true   handle by myself
     // false  deliver to parent
-    protected open fun handleOnBackPressed(): Boolean{
+    protected open fun handleOnBackPressed(): Boolean {
         return false
     }
 
@@ -61,7 +60,11 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         viewModel.attach(arguments)
         setHasOptionsMenu(true)
         _binding = inflate(inflater, container, false)
@@ -73,11 +76,11 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initView(view)
 
-        if(addBackPressedCallback()){
-            onBackPressedCallback = object : OnBackPressedCallback(true){
+        if (addBackPressedCallback()) {
+            onBackPressedCallback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     println("current fragment  handleOnBackPressed ${this@AbstractFragment}")
-                    if(!this@AbstractFragment.handleOnBackPressed()){
+                    if (!this@AbstractFragment.handleOnBackPressed()) {
                         println("current fragment  handleOnBackPressed  int   ${this@AbstractFragment}")
 
                         // one
@@ -86,7 +89,7 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
 //                        onBackPressedDispatcher.onBackPressed()
 
 //                        activity?.supportFragmentManager?.popBackStack()
-                      // two
+                        // two
 //                        if(isAdded){
                         findNavController(this@AbstractFragment).popBackStack()
 //                        }
@@ -97,17 +100,17 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
             onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback!!)
         }
 
-        bind(Lifecycle.State.STARTED) {
-            viewModel.uiState.collect { state: S? ->
-                state?.run {
-                    handleState(this)
-                }
+        viewModel.uiState.collect(
+            lifecycleOwner = viewLifecycleOwner,
+            Lifecycle.State.STARTED
+        ) { it: S? ->
+            it?.run {
+                handleState(this)
             }
         }
-        bind(Lifecycle.State.STARTED){
-            viewModel.effect.collect {
-                handleEffect(it as Effect)
-            }
+
+        viewModel.effect.collect(lifecycleOwner = viewLifecycleOwner, Lifecycle.State.STARTED) {
+            handleEffect(it as Effect)
         }
         initData()
     }
@@ -121,14 +124,6 @@ abstract class AbstractFragment<VB : ViewBinding, S: PageState, Effect: PageEffe
 
     override fun onActivityCreated() {
 //        initEventSubscribe(FlowBus())
-    }
-
-    fun bind(state: Lifecycle.State, action: suspend CoroutineScope.() -> Unit) {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(state) {
-                action()
-            }
-        }
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
