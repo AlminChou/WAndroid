@@ -57,7 +57,6 @@ abstract class AbstractFragment<VB : ViewBinding, S : PageState, Effect : PageEf
     override fun onAttach(context: Context) {
         super.onAttach(context)
         activity?.lifecycle?.addObserver(this)
-
     }
 
     override fun onCreateView(
